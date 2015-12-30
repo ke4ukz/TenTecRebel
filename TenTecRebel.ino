@@ -1,7 +1,6 @@
 #include "TenTecRebel.h"
 
 void setup() {
-  // these pins are for the AD9834 control
   pinMode(SCLK_BIT, OUTPUT);    // clock
   pinMode(FSYNC_BIT, OUTPUT);    // fsync
   pinMode(SDATA_BIT, OUTPUT);    // data
@@ -30,10 +29,6 @@ void setup() {
   loadDefaultSettings();
   AD9834_init();
   AD9834_reset();                             // low to high
-  for (int i=0; i <= 5e4; i++);  // small delay
-  AD9834_init();
-  AD9834_reset();
-  attachCoreTimerService(TimerOverFlow);//See function at the bottom of the file.
 } //end setup()
 
 void loop() {
@@ -47,8 +42,6 @@ void loop() {
   pollRotaryEncoder();
 
   if (!isTransmitting) {
-    //frequency_tune  = currentFrequency + RitFreqOffset;
-    //setFrequency(frequency_tune);
     if (millis() >= transmitInhibitUntil) {
       if (getDitKey()) {
         transmitUntil = (millis() + ditDuration);
@@ -65,13 +58,10 @@ void loop() {
     transmitInhibitUntil = (millis() + ditDuration);
   }
 
-  loopCount++;
-  loopElapsedTime    = millis() - loopStartTime;
-
-  if(loopElapsedTime >= serialReportInterval) {
+  if((millis() - lastSerialDump) >= serialReportInterval) {
     serialDump();
+    lastSerialDump = millis();
   }
-
 } //end loop()
 
 void loadDefaultSettings() {
@@ -88,11 +78,8 @@ void loadDefaultSettings() {
   digitalWrite (PIN_SIDETONE, LOW);
   digitalWrite (FREQ_REGISTER_BIT, LOW);
 
-  Band_Width_W();
-  setBand();
-  Step_Size_100();
+  setBandwidth(BANDWIDTH_WIDE);
+  setBand(getCurrentBand() );
+  setStepSize(STEP_100HZ);
 } //end loadDefaultSettings()
 
-uint32_t TimerOverFlow(uint32_t currentTime) {
-  return (currentTime + CORE_TICK_RATE*(1));//the Core Tick Rate is 1ms
-} //end TimerOverFlow()

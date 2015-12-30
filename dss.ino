@@ -6,8 +6,9 @@
 //-----------------------------------------------------------------------------
 void dssSetRXFreq(long freq) {
 //void program_freq0(long freq) {
-  AD9834_reset_high();  
+  long fcalc;
   int flow,fhigh;
+  AD9834_reset_high();  
   fcalc = freq*(268.435456e6 / REFERENCE );    // 2^28 =
   flow = fcalc&0x3fff;              //  49.99975mhz  
   fhigh = (fcalc>>14)&0x3fff;
@@ -20,8 +21,9 @@ void dssSetRXFreq(long freq) {
 
 void dssSetTXFreq(long freq) {
 //void program_freq1(long freq) {
-  AD9834_reset_high(); 
+  long fcalc;
   int flow,fhigh;
+  AD9834_reset_high(); 
   fcalc = freq*(268.435456e6 / REFERENCE );    // 2^28 =
   flow = fcalc&0x3fff;              //  use for 49.99975mhz   
   fhigh = (fcalc>>14)&0x3fff;

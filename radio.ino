@@ -8,8 +8,8 @@ int getCurrentBand() {
   }
 }
 
-void setBand() {
-  if ( getCurrentBand() == BAND_20METERS ) { 
+void setBand(int band) {
+  if ( band == BAND_20METERS ) { 
     frequency_default = DEFAULT_20METERS;
   } else { 
     frequency_default = DEFAULT_40METERS; 
@@ -19,23 +19,20 @@ void setBand() {
 }
 
 void setFrequency(long txFreq) {
-  long rxFreq;
-  //if(txFreq == currentFrequency) return;
-  dssSetRXFreq( rxFreq  );
-  rxFreq = txFreq + RitFrequencyOffset;  //  to get the TX freq
-  dssSetTXFreq( txFreq + IF  );
-  currentFrequency = txFreq;
-#ifdef BINARYOUTPUT
-  serialSend(SERIAL_TXFREQUENCY, txFreq + IF);
-  serialSend(SERIAL_RXFREQUENCY, rxFreq + IF);
-#endif
+  if (!isTransmitting) {
+    long rxFreq;
+    dssSetRXFreq( rxFreq  );
+    rxFreq = txFreq + RitFrequencyOffset;
+    dssSetTXFreq( txFreq + IF  );
+    currentFrequency = txFreq;
+    serialSend(SERIAL_TXFREQUENCY, txFreq + IF);
+    serialSend(SERIAL_RXFREQUENCY, rxFreq + IF);
+  }
 }
 
 void setTransmit(bool tx) {
   if (!isTransmitting && tx) {
-#ifdef BINARYOUTPUT
     serialSend(SERIAL_TXSTART);
-#endif
     digitalWrite(FREQ_REGISTER_BIT, HIGH);
     digitalWrite(PIN_TRANSMIT, HIGH);
     digitalWrite(PIN_SIDETONE, HIGH);
@@ -45,11 +42,8 @@ void setTransmit(bool tx) {
     digitalWrite(FREQ_REGISTER_BIT, LOW);
     digitalWrite(PIN_SIDETONE, LOW);
     isTransmitting = false;
-#ifdef BINARYOUTPUT
     serialSend(SERIAL_TXEND);
-#endif
   }
-
 }
 
 long bandLimit(long freq) {
@@ -74,7 +68,7 @@ long bandLimit(long freq) {
 
 void defaultFrequency() {
   setFrequency(frequency_default);
-}   //  end   Default_frequency
+}
 
 int getPowerIn() {
   return analogRead(PIN_POWERIN);
@@ -87,3 +81,41 @@ int getPowerOut() {
 int getSignalStrength() {
   return analogRead(PIN_SMETER);
 }
+
+void setBandwidth(int bwWidth) {
+  switch (bwWidth) {
+    case BANDWIDTH_WIDE:
+      digitalWrite( PIN_MEDIUM_A8, LOW);   // Hardware control of I.F. filter shape
+      digitalWrite( PIN_NARROW_A9, LOW);   // Hardware control of I.F. filter shape
+      break;
+    case BANDWIDTH_MEDIUM:
+      digitalWrite( PIN_MEDIUM_A8, HIGH);  // Hardware control of I.F. filter shape
+      digitalWrite( PIN_NARROW_A9, LOW);   // Hardware control of I.F. filter shape
+      break;
+    case BANDWIDTH_NARROW:
+      digitalWrite( PIN_MEDIUM_A8, LOW);   // Hardware control of I.F. filter shape
+      digitalWrite( PIN_NARROW_A9, HIGH);  // Hardware control of I.F. filter shape
+      break;
+    default:
+      return;
+  }
+  Selected_BW = bwWidth;
+}
+
+void setStepSize(int stepSize) {
+  switch (stepSize) {
+    case STEP_100HZ:
+      frequency_step = 100;
+      break;
+    case STEP_1000HZ:
+      frequency_step = 1e3;
+      break;
+    case STEP_10000HZ:
+      frequency_step = 10e3;
+      break;
+    default:
+      return;
+  }
+  Selected_Step = stepSize;
+}
+

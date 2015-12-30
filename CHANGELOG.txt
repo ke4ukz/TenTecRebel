@@ -23,3 +23,9 @@ v1.0.6 - 2015-12-30
 	CHG Changed multiple bandlimit methods to one
 v1.0.7 - 2015-12-30
 	CHG Tuning methods
+v1.0.8 - 2015-12-30
+	ADD Added signal strength to binary serial dump
+	DEL Removed a bunch of extra global variables
+	CHG Condensed bandwidth and stepsize methods into one
+	DEL Removed TimerOverflow stuff (didn't seem to be doing anything)
+	

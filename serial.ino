@@ -2,54 +2,18 @@
 
 void serialInit() {
   Serial.begin(115200);
-  #ifdef TEXTOUTPUT
-  Serial.print(__NAME__);
-  Serial.print(" version ");
-  Serial.print(__VERSION__);
-  Serial.print(" (");
-  Serial.print(__DATE__);
-  Serial.println(")");
-#endif
-
-#ifdef BINARYOUTPUT
   serialSend(__NAME__);
   serialSend(" version ");
   serialSend(__VERSION__);
   serialSend(" (");
   serialSend(__DATE__);
   serialSend(")\n");
-#endif
-
 }
 
 void serialDump() {
-#ifdef TEXTOUTPUT
-  loopStartTime   = millis();
-  loopsPerSecond  = loopCount - lastLoopCount;
-  loopSpeed       = (float)1e6 / loopsPerSecond;
-  lastLoopCount   = loopCount;
-
-  Serial.print    ( "uptime: " );
-  Serial.print    ( ++printCount );
-  Serial.println  ( " seconds" );
-
-  Serial.print    ( "loops per second:    " );
-  Serial.println  ( loopsPerSecond );
-  Serial.print    ( "loop execution time: " );
-  Serial.print    ( loopSpeed, 3 );
-  Serial.println  ( " uS" );
-
-  Serial.print    ( "Freq Rx: " );
-  Serial.println  ( frequency_tune + IF );
-  Serial.print    ( "Freq Tx: " );
-  Serial.println  ( currentFrequency + IF );
-  Serial.println  ();
-#endif
-
-#ifdef BINARYOUTPUT
   serialSend(SERIAL_VOLTMETER, getPowerIn() );
   serialSend(SERIAL_OUTPUTPOWER, getPowerOut() );
-#endif
+  serialSend(SERIAL_SMETER, getSignalStrength() );
 } //end serialDump()
 
 void serialSend(String toSend) {
