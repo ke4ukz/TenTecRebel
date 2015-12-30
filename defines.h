@@ -2,7 +2,7 @@
 #define DEFINES_H
 
 #define __NAME__                            "TenTec Rebel 506 (KE4UKZ)"
-#define __VERSION__                         "1.0.1"
+#define __VERSION__                         "1.0.2"
 
 #define SDATA_BIT                           10          //  keep!
 #define SCLK_BIT                            8           //  keep!
@@ -13,39 +13,36 @@
 #define AD9834_FREQ1_REGISTER_SELECT_BIT    0x8000      //  keep!
 #define FREQ0_INIT_VALUE                    0x01320000  //  ?
 
-#define led                                 13          // flashes when button pressed  for testing  keep!
+#define PIN_SIDETONE                        3           // maybe to be changed to a logic control for a separate side tone gen
+#define PIN_KEY_DAH                         33          // Physical pin attached to the "dah" input
+#define PIN_KEY_DIT                         32          // Physical pin attached to the "dit" input
+#define PIN_TRANSMIT                        38          // Physical pin attached to the transmitter key
 
-#define Side_Tone                           3           // maybe to be changed to a logic control
-                                                        // for a separate side tone gen
-#define TX_Dah                              33          //  keep!
-#define TX_Dit                              32          //  keep!
-#define TX_OUT                              38          //  keep!
+#define PIN_TUNE_STEP_LED                   24          // ill flash every 100/1khz/10khz is tuned and when band end is reached
+#define PIN_BAND_SELECT                     41          // if shorting block on only one pin 20m(1) on both pins 40m(0)
+#define PIN_MULTIFUNCTION_BUTTON            2           // Multifunction button input pin
+#define PIN_MULTIFUNCTION_GREEN             34          // For now assigned to BW (Band width)
+#define PIN_MULTIFUNCTION_YELLOW            35          // For now assigned to STEP size
+#define PIN_MULTIFUNCTION_RED               36          // For now assigned to USER
 
-#define Band_End_Flash_led                  24          // // also this led will flash every 100/1khz/10khz is tuned
-#define Band_Select                         41          // if shorting block on only one pin 20m(1) on both pins 40m(0)
-#define Multi_Function_Button               2           //
-#define Multi_function_Green                34          // For now assigned to BW (Band width)
-#define Multi_function_Yellow               35          // For now assigned to STEP size
-#define Multi_function_Red                  36          // For now assigned to USER
+#define PIN_SELECT_BUTTON                   5           // Select button input pin
+#define PIN_SELECT_GREEN                    37          // Wide/100/USER1
+#define PIN_SELECT_YELLOW                   39          // Medium/1K/USER2
+#define PIN_SELECT_RED                      40          // Narrow/10K/USER3
 
-#define Select_Button                       5           // 
-#define Select_Green                        37          // Wide/100/USER1
-#define Select_Yellow                       39          // Medium/1K/USER2
-#define Select_Red                          40          // Narrow/10K/USER3
+#define PIN_MEDIUM_A8                       22          // Hardware control of I.F. filter Bandwidth
+#define PIN_NARROW_A9                       23          // Hardware control of I.F. filter Bandwidth
 
-#define Medium_A8                           22          // Hardware control of I.F. filter Bandwidth
-#define Narrow_A9                           23          // Hardware control of I.F. filter Bandwidth
+#define BANDWIDTH_WIDE                      0           // About 2.1 KHZ
+#define BANDWIDTH_MEDIUM                    1           // About 1.7 KHZ
+#define BANDWIDTH_NARROW                    2           // About 1 KHZ
 
-#define Wide_BW                             0           // About 2.1 KHZ
-#define Medium_BW                           1           // About 1.7 KHZ
-#define Narrow_BW                           2           // About 1 KHZ
+#define STEP_100HZ                          0           // 100Hz tuning step
+#define STEP_1000HZ                         1           // 1KHz tuning step
+#define STEP_10000HZ                        2           // 10KHz tuning step
 
-#define Step_100_Hz                         0
-#define Step_1000_hz                        1
-#define Step_10000_hz                       2
-
-#define  Other_1_user                       0           // 
-#define  Other_2_user                       1           //
-#define  Other_3_user                       2           //
+#define USER_1                              0           //User-defined mode 1
+#define USER_2                              1           //User-defined mode 2
+#define USER_3                              2           //User-defined mode 3
 
 #endif

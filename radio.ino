@@ -1,7 +1,7 @@
 #include "radio.h"
 
 void Band_Set_40_20M() {
-  bsm = digitalRead(Band_Select); 
+  bsm = digitalRead(PIN_BAND_SELECT); 
   //  select 40 or 20 meters 1 for 20 0 for 40
   if ( bsm == 1 ) { 
     frequency_default = meter_20;
@@ -14,7 +14,7 @@ void Band_Set_40_20M() {
 
 void Frequency_up() { 
   frequency = frequency + frequency_step;
-  bsm = digitalRead(Band_Select); 
+  bsm = digitalRead(PIN_BAND_SELECT); 
    if ( bsm == 1 ) {
      Band_20_Limit_High();
    } else if ( bsm == 0 ) {
@@ -24,7 +24,7 @@ void Frequency_up() {
 
 void Frequency_down() { 
   frequency = frequency - frequency_step;
-  bsm = digitalRead(Band_Select); 
+  bsm = digitalRead(PIN_BAND_SELECT); 
   if ( bsm == 1 ) {
     Band_20_Limit_Low();
   } else if ( bsm == 0 ) {
@@ -43,28 +43,28 @@ void UpdateFreq(long freq) {
   //Serial.print("Freq: ");
   //Serial.println(freq);
   program_freq0( freq  );
-  bsm = digitalRead(Band_Select); 
+  bsm = digitalRead(PIN_BAND_SELECT); 
   freq1 = freq - RitFreqOffset;  //  to get the TX freq
   program_freq1( freq1 + IF  );
   frequency_old = freq;
 }
 
 void TX_routine() {
-  TX_key = digitalRead(TX_Dit);
+  TX_key = digitalRead(PIN_KEY_DIT);
   if ( TX_key == LOW) {       // was high   
     //   (FREQ_REGISTER_BIT, HIGH) is selected      
     do {
       digitalWrite(FREQ_REGISTER_BIT, HIGH);
-      digitalWrite(TX_OUT, HIGH);
-      digitalWrite(Side_Tone, HIGH);
-      TX_key = digitalRead(TX_Dit);
+      digitalWrite(PIN_TRANSMIT, HIGH);
+      digitalWrite(PIN_SIDETONE, HIGH);
+      TX_key = digitalRead(PIN_KEY_DIT);
     } while (TX_key == LOW);   // was high 
 
-    digitalWrite(TX_OUT, LOW);  // trun off TX
+    digitalWrite(PIN_TRANSMIT, LOW);  // trun off TX
     for (int i=0; i <= 10e3; i++); // delay for maybe some decay on key release
 
     digitalWrite(FREQ_REGISTER_BIT, LOW);
-    digitalWrite(Side_Tone, LOW);
+    digitalWrite(PIN_SIDETONE, LOW);
   }
 }
 

@@ -19,18 +19,18 @@ void Step_Flash() {
 }
 
 void stop_led_on() {
-  digitalWrite(Band_End_Flash_led, HIGH);
+  digitalWrite(PIN_TUNE_STEP_LED, HIGH);
 }
 
 
 void stop_led_off() {
-  digitalWrite(Band_End_Flash_led, LOW);
+  digitalWrite(PIN_TUNE_STEP_LED, LOW);
 }
 
 void Multi_Function() { // The right most pushbutton for BW, Step, Other
-  Step_Multi_Function_Button = digitalRead(Multi_Function_Button);
+  Step_Multi_Function_Button = digitalRead(PIN_MULTIFUNCTION_BUTTON);
   if (Step_Multi_Function_Button == HIGH) {   
-    while( digitalRead(Multi_Function_Button) == HIGH ){ }  // added for testing
+    while( digitalRead(PIN_MULTIFUNCTION_BUTTON) == HIGH ){ }  // added for testing
     for (int i=0; i <= 150e3; i++); // short delay
     Step_Multi_Function_Button1 = Step_Multi_Function_Button1++;
     if (Step_Multi_Function_Button1 > 2 ) { 
@@ -67,9 +67,9 @@ void Step_Function() {
 }
 
 void  Selection() {
-  Step_Select_Button = digitalRead(Select_Button);
+  Step_Select_Button = digitalRead(PIN_SELECT_BUTTON);
   if (Step_Select_Button == HIGH) {   
-    while( digitalRead(Select_Button) == HIGH ){ }  // added for testing
+    while( digitalRead(PIN_SELECT_BUTTON) == HIGH ){ }  // added for testing
     for (int i=0; i <= 150e3; i++); // short delay
     Step_Select_Button1 = Step_Select_Button1++;
     if (Step_Select_Button1 > 2 ) { 
@@ -81,43 +81,43 @@ void  Selection() {
 
 void Step_Select() {
   switch ( Step_Select_Button1 ) {
-    case 0: //   Select_Green   could place the S_G() routine here!
+    case 0: //   PIN_SELECT_GREEN   could place the S_G() routine here!
       S_G();
       break;
-    case 1: //   Select_Yellow  could place the S_Y() routine here!
+    case 1: //   PIN_SELECT_YELLOW  could place the S_Y() routine here!
       S_Y();
       break; 
-    case 2: //   Select_Red    could place the S_R() routine here!
+    case 2: //   PIN_SELECT_RED    could place the S_R() routine here!
       S_R();
       break;     
   }
 }
 
 void MF_G() {  //  Multi-function Green 
-  digitalWrite(Multi_function_Green, HIGH);    
-  digitalWrite(Multi_function_Yellow, LOW);  // 
-  digitalWrite(Multi_function_Red, LOW);  //
+  digitalWrite(PIN_MULTIFUNCTION_GREEN, HIGH);    
+  digitalWrite(PIN_MULTIFUNCTION_YELLOW, LOW);  // 
+  digitalWrite(PIN_MULTIFUNCTION_RED, LOW);  //
   for (int i=0; i <= 255; i++); // short delay   
 }
 
 void MF_Y() { //  Multi-function Yellow
-  digitalWrite(Multi_function_Green, LOW);    
-  digitalWrite(Multi_function_Yellow, HIGH);  // 
-  digitalWrite(Multi_function_Red, LOW);  //
+  digitalWrite(PIN_MULTIFUNCTION_GREEN, LOW);    
+  digitalWrite(PIN_MULTIFUNCTION_YELLOW, HIGH);  // 
+  digitalWrite(PIN_MULTIFUNCTION_RED, LOW);  //
   for (int i=0; i <= 255; i++); // short delay 
 }
 
 void MF_R() { //  Multi-function Red
-  digitalWrite(Multi_function_Green, LOW);
-  digitalWrite(Multi_function_Yellow, LOW);  // 
-  digitalWrite(Multi_function_Red, HIGH);
+  digitalWrite(PIN_MULTIFUNCTION_GREEN, LOW);
+  digitalWrite(PIN_MULTIFUNCTION_YELLOW, LOW);  // 
+  digitalWrite(PIN_MULTIFUNCTION_RED, HIGH);
   for (int i=0; i <= 255; i++); // short delay  
 }
 
 void S_G() { // Select Green 
-  digitalWrite(Select_Green, HIGH); 
-  digitalWrite(Select_Yellow, LOW);  // 
-  digitalWrite(Select_Red, LOW);  //
+  digitalWrite(PIN_SELECT_GREEN, HIGH); 
+  digitalWrite(PIN_SELECT_YELLOW, LOW);  // 
+  digitalWrite(PIN_SELECT_RED, LOW);  //
   if (Step_Multi_Function_Button1 == 0) {
       Band_Width_W(); 
   } else if (Step_Multi_Function_Button1 == 1) {
@@ -129,9 +129,9 @@ void S_G() { // Select Green
 }
 
 void S_Y() { // Select Yellow
-  digitalWrite(Select_Green, LOW); 
-  digitalWrite(Select_Yellow, HIGH);  // 
-  digitalWrite(Select_Red, LOW);  //
+  digitalWrite(PIN_SELECT_GREEN, LOW); 
+  digitalWrite(PIN_SELECT_YELLOW, HIGH);  // 
+  digitalWrite(PIN_SELECT_RED, LOW);  //
   if (Step_Multi_Function_Button1 == 0) {
       Band_Width_M();
   } else if (Step_Multi_Function_Button1 == 1) {
@@ -143,9 +143,9 @@ void S_Y() { // Select Yellow
 }
 
 void S_R() { // Select Red
-  digitalWrite(Select_Green, LOW);   //
-  digitalWrite(Select_Yellow, LOW);  // 
-  digitalWrite(Select_Red, HIGH);    //
+  digitalWrite(PIN_SELECT_GREEN, LOW);   //
+  digitalWrite(PIN_SELECT_YELLOW, LOW);  // 
+  digitalWrite(PIN_SELECT_RED, HIGH);    //
   if (Step_Multi_Function_Button1 == 0) {
       Band_Width_N();
   } else if (Step_Multi_Function_Button1 == 1) {
@@ -157,46 +157,46 @@ void S_R() { // Select Red
 }
 
 void Band_Width_W() {
-  digitalWrite( Medium_A8, LOW);   // Hardware control of I.F. filter shape
-  digitalWrite( Narrow_A9, LOW);   // Hardware control of I.F. filter shape
-  Selected_BW = Wide_BW;
+  digitalWrite( PIN_MEDIUM_A8, LOW);   // Hardware control of I.F. filter shape
+  digitalWrite( PIN_NARROW_A9, LOW);   // Hardware control of I.F. filter shape
+  Selected_BW = BANDWIDTH_WIDE;
 }
 
 void Band_Width_M() {
-  digitalWrite( Medium_A8, HIGH);  // Hardware control of I.F. filter shape
-  digitalWrite( Narrow_A9, LOW);   // Hardware control of I.F. filter shape
-  Selected_BW = Medium_BW;  
+  digitalWrite( PIN_MEDIUM_A8, HIGH);  // Hardware control of I.F. filter shape
+  digitalWrite( PIN_NARROW_A9, LOW);   // Hardware control of I.F. filter shape
+  Selected_BW = BANDWIDTH_MEDIUM;  
 }
 
 void Band_Width_N() {
-  digitalWrite( Medium_A8, LOW);   // Hardware control of I.F. filter shape
-  digitalWrite( Narrow_A9, HIGH);  // Hardware control of I.F. filter shape
-  Selected_BW = Narrow_BW; 
+  digitalWrite( PIN_MEDIUM_A8, LOW);   // Hardware control of I.F. filter shape
+  digitalWrite( PIN_NARROW_A9, HIGH);  // Hardware control of I.F. filter shape
+  Selected_BW = BANDWIDTH_NARROW; 
 }
 
 void Step_Size_100() {    // Encoder Step Size 
   frequency_step = 100;   //  Can change this whatever step size one wants
-  Selected_Step = Step_100_Hz; 
+  Selected_Step = STEP_100HZ; 
 }
 
 void Step_Size_1k() {     // Encoder Step Size 
   frequency_step = 1e3;   //  Can change this whatever step size one wants
-  Selected_Step = Step_1000_hz; 
+  Selected_Step = STEP_1000HZ; 
 }
 
 void Step_Size_10k() {    // Encoder Step Size 
   frequency_step = 10e3;    //  Can change this whatever step size one wants
-  Selected_Step = Step_10000_hz; 
+  Selected_Step = STEP_10000HZ; 
 }
 
 void Other_1() {    //  User Defined Control Software 
-  Selected_Other = Other_1_user; 
+  Selected_Other = USER_1; 
 }
 
 void Other_2() {    //  User Defined Control Software
-  Selected_Other = Other_2_user; 
+  Selected_Other = USER_2; 
 }
 
 void Other_3() {     //  User Defined Control Software
-  Selected_Other = Other_3_user; 
+  Selected_Other = USER_3; 
 }
