@@ -1,17 +1,11 @@
 #ifndef GLOBALS_H
 #define GLOBALS_H
-extern const int RitReadPin;
 extern int RitReadValue;
 extern int RitFreqOffset;
-extern const int SmeterReadPin;
 extern int SmeterReadValue;
-extern const int BatteryReadPin;
 extern int BatteryReadValue;
-extern const int PowerOutReadPin;
 extern int PowerOutReadValue;
-extern const int CodeReadPin;
 extern int CodeReadValue;
-extern const int CWSpeedReadPin;
 extern int CWSpeedReadValue;
 extern int TX_key;
 extern int band_sel;
@@ -24,15 +18,18 @@ extern int Step_Multi_Function_Button1;
 extern int Selected_BW;
 extern int Selected_Step;
 extern int Selected_Other;
-extern const int encoder0PinA;
-extern const int encoder0PinB;
+extern unsigned long serialReportInterval;
+extern unsigned long ditDuration;
+
 extern int val;
 extern int encoder0Pos;
 extern int encoder0PinALast;
 extern int n;
-extern const long meter_40;
-extern const long meter_20;
-extern const long Reference;
+
+extern bool isTransmitting;
+extern unsigned long transmitUntil;
+extern unsigned long transmitInhibitUntil;
+
 extern long RIT_frequency;
 extern long RX_frequency;
 extern long save_rec_frequency;

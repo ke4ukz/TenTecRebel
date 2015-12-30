@@ -1,9 +1,17 @@
 #include "ui.h"
 
+bool getDitKey() {
+  return (digitalRead(PIN_KEY_DIT) == LOW);
+}
+
+bool getDahKey() {
+  return (digitalRead(PIN_KEY_DAH) == LOW);
+}
+
 void pollRotaryEncoder() {
-  n = digitalRead(encoder0PinA);
+  n = digitalRead(PIN_ENCODER0A);
   if ((encoder0PinALast == LOW) && (n == HIGH)) {
-    if (digitalRead(encoder0PinB) == LOW) {
+    if (digitalRead(PIN_ENCODER0B) == LOW) {
       Frequency_down();    //encoder0Pos--;
     } else {
       Frequency_up();       //encoder0Pos++;

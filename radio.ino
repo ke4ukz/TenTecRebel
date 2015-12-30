@@ -4,9 +4,9 @@ void Band_Set_40_20M() {
   bsm = digitalRead(PIN_BAND_SELECT); 
   //  select 40 or 20 meters 1 for 20 0 for 40
   if ( bsm == 1 ) { 
-    frequency_default = meter_20;
+    frequency_default = DEFAULT_20METERS;
   } else { 
-    frequency_default = meter_40; 
+    frequency_default = DEFAULT_40METERS; 
     IF *= -1;               //  HI side injection
   }
   Default_frequency();
@@ -49,28 +49,30 @@ void setFrequency(long freq) {
   frequency_old = freq;
 }
 
-void TX_routine() {
-  TX_key = digitalRead(PIN_KEY_DIT);
-  if ( TX_key == LOW) {       // was high   
-    //   (FREQ_REGISTER_BIT, HIGH) is selected      
-    do {
-      digitalWrite(FREQ_REGISTER_BIT, HIGH);
-      digitalWrite(PIN_TRANSMIT, HIGH);
-      digitalWrite(PIN_SIDETONE, HIGH);
-      TX_key = digitalRead(PIN_KEY_DIT);
-    } while (TX_key == LOW);   // was high 
-
-    digitalWrite(PIN_TRANSMIT, LOW);  // trun off TX
-    for (int i=0; i <= 10e3; i++); // delay for maybe some decay on key release
-
+void setTransmit(bool tx) {
+  if (!isTransmitting && tx) {
+#ifdef BINARYOUTPUT
+    serialSend(SERIAL_TXSTART);
+#endif
+    digitalWrite(FREQ_REGISTER_BIT, HIGH);
+    digitalWrite(PIN_TRANSMIT, HIGH);
+    digitalWrite(PIN_SIDETONE, HIGH);
+    isTransmitting = true;
+  } else if (isTransmitting && !tx) {
+    digitalWrite(PIN_TRANSMIT, LOW);
     digitalWrite(FREQ_REGISTER_BIT, LOW);
     digitalWrite(PIN_SIDETONE, LOW);
+    isTransmitting = false;
+#ifdef BINARYOUTPUT
+    serialSend(SERIAL_TXEND);
+#endif
   }
+
 }
 
 void readRITValue() {
   int RitReadValueNew =0 ;
-  RitReadValueNew = analogRead(RitReadPin);
+  RitReadValueNew = analogRead(PIN_RIT);
   RitReadValue = (RitReadValueNew + (7 * RitReadValue))/8;//Lowpass filter
   if(RitReadValue < 500) {
       RitFreqOffset = RitReadValue-500;
@@ -122,3 +124,14 @@ void Default_frequency() {
   setFrequency(frequency);
 }   //  end   Default_frequency
 
+int getPowerIn() {
+  return analogRead(PIN_POWERIN);
+}
+
+int getPowerOut() {
+  return analogRead(PIN_POWEROUT);
+}
+
+int getSignalStrength() {
+  return analogRead(PIN_SMETER);
+}

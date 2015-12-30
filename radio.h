@@ -6,7 +6,7 @@ void Band_Set_40_20M();
 void Frequency_up();
 void Frequency_down();
 void setFrequency(long);
-void TX_routine();
+void setTransmit(bool);
 void readRITValue();
 void Band_40_Limit_High();
 void Band_40_Limit_Low();

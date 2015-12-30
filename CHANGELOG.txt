@@ -7,3 +7,14 @@ v1.0.2 - 2015-12-29
 	CHG Revised #define statements for consistency
 v1.0.3 - 2015-12-29
 	CHG Renamed many functions for consistency and clarity
+v1.0.4 - 2015-12-30
+	CHG Changed global constants into #defines
+	ADD Added binary serialSend() methods
+	ADD Message type #defines for serialSend()
+	ADD TEXTOUTPUT or BINARYOUTPUT #defines to choose serial reporting data type
+v1.0.5 - 2015-12-30
+	ADD Added power in, power out, and signal strength reading methods
+	ADD Added binary serial updates
+	DEL TX_Routine()
+	ADD setTransmit()
+	ADD Added iambic keyer

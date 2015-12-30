@@ -1,6 +1,8 @@
 #include "globals.h"
 #include "defines.h"
 
+bool getDitKey();
+bool getDahKey();
 void pollRotaryEncoder();
 void Step_Flash();
 void stop_led_on();
