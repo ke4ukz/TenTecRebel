@@ -1,0 +1,26 @@
+#include "globals.h"
+#include "defines.h"
+
+void Encoder();
+void Step_Flash();
+void stop_led_on();
+void stop_led_off();
+void Multi_Function();
+void Step_Function();
+void  Selection();
+void Step_Select();
+void MF_G();
+void MF_Y();
+void MF_R();
+void S_G();
+void S_Y();
+void S_R();
+void Band_Width_W();
+void Band_Width_M();
+void Band_Width_N();
+void Step_Size_100();
+void Step_Size_1k();
+void Step_Size_10k();
+void Other_1();
+void Other_2();
+void Other_3();

@@ -1,0 +1,5 @@
+v1.0.0 - 2015-12-29
+	Started with code downloaded from http://www.rkrdesignsllc.com/static/media/documents/tt_506__rebel_control_software_v2.0.pde
+v1.0.1 - 2015-12-29
+	CHG Broke the massive single file into logical units
+	DEL Removed all LCD stuff
