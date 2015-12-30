@@ -4,7 +4,8 @@
 // ****************  Dont bother the code below  ******************************
 // \/  \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/
 //-----------------------------------------------------------------------------
-void program_freq0(long freq) {
+void dssSetRXFreq(long freq) {
+//void program_freq0(long freq) {
   AD9834_reset_high();  
   int flow,fhigh;
   fcalc = freq*(268.435456e6 / REFERENCE );    // 2^28 =
@@ -17,8 +18,8 @@ void program_freq0(long freq) {
   AD9834_reset_low();
 } // end   program_freq0
 
-
-void program_freq1(long freq) {
+void dssSetTXFreq(long freq) {
+//void program_freq1(long freq) {
   AD9834_reset_high(); 
   int flow,fhigh;
   fcalc = freq*(268.435456e6 / REFERENCE );    // 2^28 =

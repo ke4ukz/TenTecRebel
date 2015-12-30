@@ -1,16 +1,12 @@
 #ifndef GLOBALS_H
 #define GLOBALS_H
 extern int RitReadValue;
-extern int RitFreqOffset;
+extern int RitFrequencyOffset;
 extern int SmeterReadValue;
 extern int BatteryReadValue;
 extern int PowerOutReadValue;
 extern int CodeReadValue;
 extern int CWSpeedReadValue;
-extern int TX_key;
-extern int band_sel;
-extern int band_set;
-extern int bsm;
 extern int Step_Select_Button;
 extern int Step_Select_Button1;
 extern int Step_Multi_Function_Button;
@@ -30,13 +26,11 @@ extern bool isTransmitting;
 extern unsigned long transmitUntil;
 extern unsigned long transmitInhibitUntil;
 
-extern long RIT_frequency;
-extern long RX_frequency;
-extern long save_rec_frequency;
+//extern long RIT_frequency;
+//extern long RX_frequency;
+//extern long save_rec_frequency;
 extern long frequency_step;
 extern long currentFrequency;
-extern long frequency_old;
-extern long frequency_tune;
 extern long frequency_default;
 extern long fcalc;
 extern long IF;

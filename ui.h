@@ -4,12 +4,13 @@
 bool getDitKey();
 bool getDahKey();
 void pollRotaryEncoder();
+void pollRIT();
 void Step_Flash();
 void stop_led_on();
 void stop_led_off();
 void pollMultifunctionButton();
 void Step_Function();
-void  pollSelectButton();
+void pollSelectButton();
 void Step_Select();
 void MF_G();
 void MF_Y();

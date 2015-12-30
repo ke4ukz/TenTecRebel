@@ -40,15 +40,15 @@ void loop() {
   digitalWrite(FSYNC_BIT, HIGH);  // 
   digitalWrite(SCLK_BIT, HIGH);  //
 
-  readRITValue();
+  pollRIT();
 
   pollMultifunctionButton(); 
 
   pollRotaryEncoder();
 
   if (!isTransmitting) {
-    frequency_tune  = currentFrequency + RitFreqOffset;
-    setFrequency(frequency_tune);
+    //frequency_tune  = currentFrequency + RitFreqOffset;
+    //setFrequency(frequency_tune);
     if (millis() >= transmitInhibitUntil) {
       if (getDitKey()) {
         transmitUntil = (millis() + ditDuration);
@@ -89,7 +89,7 @@ void loadDefaultSettings() {
   digitalWrite (FREQ_REGISTER_BIT, LOW);
 
   Band_Width_W();
-  Band_Set_40_20M();
+  setBand();
   Step_Size_100();
 } //end loadDefaultSettings()
 

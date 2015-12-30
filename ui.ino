@@ -12,12 +12,28 @@ void pollRotaryEncoder() {
   n = digitalRead(PIN_ENCODER0A);
   if ((encoder0PinALast == LOW) && (n == HIGH)) {
     if (digitalRead(PIN_ENCODER0B) == LOW) {
-      Frequency_down();    //encoder0Pos--;
+      setFrequency(bandLimit(currentFrequency - frequency_step));
     } else {
-      Frequency_up();       //encoder0Pos++;
+      setFrequency(bandLimit(currentFrequency + frequency_step));
     }
   } 
   encoder0PinALast = n;
+}
+
+void pollRIT() {
+  int oldRitValue;
+  oldRitValue = RitReadValue;
+  RitReadValue = (analogRead(PIN_RIT) + (7 * RitReadValue))/8;//Lowpass filter
+  if (RitReadValue != oldRitValue) {
+    if(RitReadValue < 500) {
+      RitFrequencyOffset = RitReadValue-500;
+    } else if(RitReadValue < 523) {
+      RitFrequencyOffset = 0;//Deadband in middle of pot
+    } else {
+      RitFrequencyOffset = RitReadValue - 523;
+    }
+    setFrequency(currentFrequency);
+  }
 }
 
 void pollMultifunctionButton() { // The right most pushbutton for BW, Step, Other

@@ -8,39 +8,27 @@ int getCurrentBand() {
   }
 }
 
-void Band_Set_40_20M() {
+void setBand() {
   if ( getCurrentBand() == BAND_20METERS ) { 
     frequency_default = DEFAULT_20METERS;
   } else { 
     frequency_default = DEFAULT_40METERS; 
     IF *= -1;               //  HI side injection
   }
-  Default_frequency();
+  defaultFrequency();
 }
 
-void Frequency_up() { 
-  currentFrequency = bandLimit(currentFrequency + frequency_step);
-}
-
-void Frequency_down() { 
-  currentFrequency = bandLimit(currentFrequency - frequency_step);
-}
-
-void setFrequency(long freq) {
-  long freq1;
-//  some of this code affects the way to Rit responds to being turned
-  if (LastFreqWriteTime != 0) {
-    if ((millis() - LastFreqWriteTime) < 100) return;
-  }
-  LastFreqWriteTime = millis();
-  if(freq == frequency_old) return;
-  //Serial.print("Freq: ");
-  //Serial.println(freq);
-  program_freq0( freq  );
-  bsm = digitalRead(PIN_BAND_SELECT); 
-  freq1 = freq - RitFreqOffset;  //  to get the TX freq
-  program_freq1( freq1 + IF  );
-  frequency_old = freq;
+void setFrequency(long txFreq) {
+  long rxFreq;
+  //if(txFreq == currentFrequency) return;
+  dssSetRXFreq( rxFreq  );
+  rxFreq = txFreq + RitFrequencyOffset;  //  to get the TX freq
+  dssSetTXFreq( txFreq + IF  );
+  currentFrequency = txFreq;
+#ifdef BINARYOUTPUT
+  serialSend(SERIAL_TXFREQUENCY, txFreq + IF);
+  serialSend(SERIAL_RXFREQUENCY, rxFreq + IF);
+#endif
 }
 
 void setTransmit(bool tx) {
@@ -64,19 +52,6 @@ void setTransmit(bool tx) {
 
 }
 
-void readRITValue() {
-  int RitReadValueNew =0 ;
-  RitReadValueNew = analogRead(PIN_RIT);
-  RitReadValue = (RitReadValueNew + (7 * RitReadValue))/8;//Lowpass filter
-  if(RitReadValue < 500) {
-      RitFreqOffset = RitReadValue-500;
-  } else if(RitReadValue < 523) {
-      RitFreqOffset = 0;//Deadband in middle of pot
-  } else {
-      RitFreqOffset = RitReadValue - 523;
-  }
-}
-
 long bandLimit(long freq) {
   if (getCurrentBand() == BAND_20METERS) {
     if (freq > BANDLIMIT_20_TOP) {
@@ -97,9 +72,8 @@ long bandLimit(long freq) {
   }
 }
 
-void Default_frequency() {
-  currentFrequency = frequency_default;
-  setFrequency(currentFrequency);
+void defaultFrequency() {
+  setFrequency(frequency_default);
 }   //  end   Default_frequency
 
 int getPowerIn() {

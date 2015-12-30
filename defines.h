@@ -2,7 +2,7 @@
 #define DEFINES_H
 
 #define __NAME__                            "TenTec Rebel 506 (KE4UKZ)"
-#define __VERSION__                         "1.0.6"
+#define __VERSION__                         "1.0.7"
 
 #undef TEXTOUTPUT
 #define BINARYOUTPUT

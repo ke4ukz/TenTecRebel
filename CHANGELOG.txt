@@ -21,3 +21,5 @@ v1.0.5 - 2015-12-30
 v1.0.6 - 2015-12-30
 	CHG Renamed global variable frequency to currentFrequency
 	CHG Changed multiple bandlimit methods to one
+v1.0.7 - 2015-12-30
+	CHG Tuning methods
