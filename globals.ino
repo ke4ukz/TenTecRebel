@@ -36,7 +36,7 @@ long RIT_frequency;
 long RX_frequency; 
 long save_rec_frequency;
 long frequency_step;
-long frequency = 0;
+long currentFrequency = 0;
 long frequency_old = 0;
 long frequency_tune = 0;
 long frequency_default = 0;

@@ -1,9 +1,15 @@
 #include "radio.h"
 
+int getCurrentBand() {
+  if (digitalRead(PIN_BAND_SELECT) == HIGH) {
+    return BAND_20METERS;
+  } else {
+    return BAND_40METERS;
+  }
+}
+
 void Band_Set_40_20M() {
-  bsm = digitalRead(PIN_BAND_SELECT); 
-  //  select 40 or 20 meters 1 for 20 0 for 40
-  if ( bsm == 1 ) { 
+  if ( getCurrentBand() == BAND_20METERS ) { 
     frequency_default = DEFAULT_20METERS;
   } else { 
     frequency_default = DEFAULT_40METERS; 
@@ -13,23 +19,11 @@ void Band_Set_40_20M() {
 }
 
 void Frequency_up() { 
-  frequency = frequency + frequency_step;
-  bsm = digitalRead(PIN_BAND_SELECT); 
-   if ( bsm == 1 ) {
-     Band_20_Limit_High();
-   } else if ( bsm == 0 ) {
-     Band_40_Limit_High();
-   }
+  currentFrequency = bandLimit(currentFrequency + frequency_step);
 }
 
 void Frequency_down() { 
-  frequency = frequency - frequency_step;
-  bsm = digitalRead(PIN_BAND_SELECT); 
-  if ( bsm == 1 ) {
-    Band_20_Limit_Low();
-  } else if ( bsm == 0 ) {
-    Band_40_Limit_Low();
-  }
+  currentFrequency = bandLimit(currentFrequency - frequency_step);
 }
 
 void setFrequency(long freq) {
@@ -83,45 +77,29 @@ void readRITValue() {
   }
 }
 
-void Band_40_Limit_High() { //  Ham band limits
-  if ( frequency < 16.3e6 ) { 
-    stop_led_off();
-  } else if ( frequency >= 16.3e6 ) { 
-    frequency = 16.3e6;
-    stop_led_on();    
+long bandLimit(long freq) {
+  if (getCurrentBand() == BAND_20METERS) {
+    if (freq > BANDLIMIT_20_TOP) {
+      return BANDLIMIT_20_TOP;
+    } else if (freq < BANDLIMIT_20_BOTTOM) {
+      return BANDLIMIT_20_BOTTOM;
+    } else {
+      return freq;
+    }
+  } else {
+    if (freq > BANDLIMIT_40_TOP) {
+      return BANDLIMIT_40_TOP;
+    } else if (freq < BANDLIMIT_40_BOTTOM) {
+      return BANDLIMIT_40_BOTTOM;
+    } else {
+      return freq;
+    }
   }
-}
-
-void Band_40_Limit_Low() {  //  Ham band limits
-  if ( frequency <= 16.0e6 ) { 
-    frequency = 16.0e6;
-    stop_led_on();
-  } else if ( frequency > 16.0e6 ) { 
-    stop_led_off();
-  } 
-}
-
-void Band_20_Limit_High() {    //  Ham band limits
-  if ( frequency < 5.35e6 ) {
-    stop_led_off();
-  } else if ( frequency >= 5.35e6 ) {
-    frequency = 5.35e6;
-    stop_led_on();    
-  }
-}
-
-void Band_20_Limit_Low() {    //  Ham band limits
-  if ( frequency <= 5.0e6 ) { 
-    frequency = 5.0e6;
-    stop_led_on();
-  } else if ( frequency > 5.0e6 ) { 
-    stop_led_off();
-  } 
 }
 
 void Default_frequency() {
-  frequency = frequency_default;
-  setFrequency(frequency);
+  currentFrequency = frequency_default;
+  setFrequency(currentFrequency);
 }   //  end   Default_frequency
 
 int getPowerIn() {

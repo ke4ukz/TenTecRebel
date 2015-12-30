@@ -34,7 +34,7 @@ extern long RIT_frequency;
 extern long RX_frequency;
 extern long save_rec_frequency;
 extern long frequency_step;
-extern long frequency;
+extern long currentFrequency;
 extern long frequency_old;
 extern long frequency_tune;
 extern long frequency_default;

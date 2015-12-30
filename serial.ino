@@ -42,7 +42,7 @@ void serialDump() {
   Serial.print    ( "Freq Rx: " );
   Serial.println  ( frequency_tune + IF );
   Serial.print    ( "Freq Tx: " );
-  Serial.println  ( frequency + IF );
+  Serial.println  ( currentFrequency + IF );
   Serial.println  ();
 #endif
 

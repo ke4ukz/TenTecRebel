@@ -4,10 +4,10 @@
 // ****************  Dont bother the code below  ******************************
 // \/  \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/
 //-----------------------------------------------------------------------------
-void program_freq0(long frequency) {
+void program_freq0(long freq) {
   AD9834_reset_high();  
   int flow,fhigh;
-  fcalc = frequency*(268.435456e6 / REFERENCE );    // 2^28 =
+  fcalc = freq*(268.435456e6 / REFERENCE );    // 2^28 =
   flow = fcalc&0x3fff;              //  49.99975mhz  
   fhigh = (fcalc>>14)&0x3fff;
   digitalWrite(FSYNC_BIT, LOW);  //
@@ -18,10 +18,10 @@ void program_freq0(long frequency) {
 } // end   program_freq0
 
 
-void program_freq1(long frequency) {
+void program_freq1(long freq) {
   AD9834_reset_high(); 
   int flow,fhigh;
-  fcalc = frequency*(268.435456e6 / REFERENCE );    // 2^28 =
+  fcalc = freq*(268.435456e6 / REFERENCE );    // 2^28 =
   flow = fcalc&0x3fff;              //  use for 49.99975mhz   
   fhigh = (fcalc>>14)&0x3fff;
   digitalWrite(FSYNC_BIT, LOW);  

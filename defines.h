@@ -2,7 +2,7 @@
 #define DEFINES_H
 
 #define __NAME__                            "TenTec Rebel 506 (KE4UKZ)"
-#define __VERSION__                         "1.0.5"
+#define __VERSION__                         "1.0.6"
 
 #undef TEXTOUTPUT
 #define BINARYOUTPUT
@@ -15,6 +15,9 @@
 #define AD9834_FREQ0_REGISTER_SELECT_BIT    0x4000      //  keep!
 #define AD9834_FREQ1_REGISTER_SELECT_BIT    0x8000      //  keep!
 #define FREQ0_INIT_VALUE                    0x01320000  //  ?
+
+#define PIN_ENCODER0A                       7           //Rotary encoder A
+#define PIN_ENCODER0B                       6           //Rotary encoder B
 
 #define PIN_SIDETONE                        3           // maybe to be changed to a logic control for a separate side tone gen
 #define PIN_KEY_DAH                         33          // Physical pin attached to the "dah" input
@@ -48,11 +51,16 @@
 #define USER_2                              1           //User-defined mode 2
 #define USER_3                              2           //User-defined mode 3
 
-#define PIN_ENCODER0A                       7           //Rotary encoder A
-#define PIN_ENCODER0B                       6           //Rotary encoder B
+#define BAND_20METERS                       0
+#define BAND_40METERS                       1
+#define BANDLIMIT_20_TOP                    5.35e6
+#define BANDLIMIT_20_BOTTOM                 5.0e6
+#define BANDLIMIT_40_TOP                    16.3e6
+#define BANDLIMIT_40_BOTTOM                 16.0e6
 #define DEFAULT_40METERS                    16.03e6     // IF + Band frequency, HI side injection 40 meter range 16 > 16.3 mhz
 #define DEFAULT_20METERS                    5.06e6      // Band frequency - IF, LOW side injection 20 meter range 5 > 5.35 mhz
 #define REFERENCE                           49.99975e6  // for ad9834 this may be tweaked in software to fine tune the Radio
+
 #define PIN_CWSPEED                         A7          // To adjust CW speed for user written keyer.
 #define PIN_CWREAD                          A6          // Can be used to decode CW. 
 #define PIN_POWEROUT                        A3          // Reads RF out voltage at Antenna.

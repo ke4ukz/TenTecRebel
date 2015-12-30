@@ -20,21 +20,6 @@ void pollRotaryEncoder() {
   encoder0PinALast = n;
 }
 
-void Step_Flash() {
-  stop_led_on();
-  for (int i=0; i <= 25e3; i++); // short delay 
-  stop_led_off();   
-}
-
-void stop_led_on() {
-  digitalWrite(PIN_TUNE_STEP_LED, HIGH);
-}
-
-
-void stop_led_off() {
-  digitalWrite(PIN_TUNE_STEP_LED, LOW);
-}
-
 void pollMultifunctionButton() { // The right most pushbutton for BW, Step, Other
   Step_Multi_Function_Button = digitalRead(PIN_MULTIFUNCTION_BUTTON);
   if (Step_Multi_Function_Button == HIGH) {   

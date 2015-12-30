@@ -47,7 +47,7 @@ void loop() {
   pollRotaryEncoder();
 
   if (!isTransmitting) {
-    frequency_tune  = frequency + RitFreqOffset;
+    frequency_tune  = currentFrequency + RitFreqOffset;
     setFrequency(frequency_tune);
     if (millis() >= transmitInhibitUntil) {
       if (getDitKey()) {

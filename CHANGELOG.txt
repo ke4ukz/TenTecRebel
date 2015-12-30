@@ -18,3 +18,6 @@ v1.0.5 - 2015-12-30
 	DEL TX_Routine()
 	ADD setTransmit()
 	ADD Added iambic keyer
+v1.0.6 - 2015-12-30
+	CHG Renamed global variable frequency to currentFrequency
+	CHG Changed multiple bandlimit methods to one
