@@ -1,6 +1,6 @@
 #include "ui.h"
 
-void Encoder() {
+void pollRotaryEncoder() {
   n = digitalRead(encoder0PinA);
   if ((encoder0PinALast == LOW) && (n == HIGH)) {
     if (digitalRead(encoder0PinB) == LOW) {
@@ -27,7 +27,7 @@ void stop_led_off() {
   digitalWrite(PIN_TUNE_STEP_LED, LOW);
 }
 
-void Multi_Function() { // The right most pushbutton for BW, Step, Other
+void pollMultifunctionButton() { // The right most pushbutton for BW, Step, Other
   Step_Multi_Function_Button = digitalRead(PIN_MULTIFUNCTION_BUTTON);
   if (Step_Multi_Function_Button == HIGH) {   
     while( digitalRead(PIN_MULTIFUNCTION_BUTTON) == HIGH ){ }  // added for testing
@@ -46,27 +46,27 @@ void Step_Function() {
       MF_G();
       Step_Select_Button1 = Selected_BW; // 
       Step_Select(); //
-      Selection();
+      pollSelectButton();
       for (int i=0; i <= 255; i++); // short delay
       break;   //
     case 1:
       MF_Y();
       Step_Select_Button1 = Selected_Step; //
       Step_Select(); //
-      Selection();
+      pollSelectButton();
       for (int i=0; i <= 255; i++); // short delay
       break;   //
     case 2: 
       MF_R();
       Step_Select_Button1 = Selected_Other; //
       Step_Select(); //
-      Selection();
+      pollSelectButton();
       for (int i=0; i <= 255; i++); // short delay
       break;   //  
   }
 }
 
-void  Selection() {
+void  pollSelectButton() {
   Step_Select_Button = digitalRead(PIN_SELECT_BUTTON);
   if (Step_Select_Button == HIGH) {   
     while( digitalRead(PIN_SELECT_BUTTON) == HIGH ){ }  // added for testing

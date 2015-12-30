@@ -32,7 +32,7 @@ void Frequency_down() {
   }
 }
 
-void UpdateFreq(long freq) {
+void setFrequency(long freq) {
   long freq1;
 //  some of this code affects the way to Rit responds to being turned
   if (LastFreqWriteTime != 0) {
@@ -68,7 +68,7 @@ void TX_routine() {
   }
 }
 
-void RIT_Read() {
+void readRITValue() {
   int RitReadValueNew =0 ;
   RitReadValueNew = analogRead(RitReadPin);
   RitReadValue = (RitReadValueNew + (7 * RitReadValue))/8;//Lowpass filter
@@ -119,6 +119,6 @@ void Band_20_Limit_Low() {    //  Ham band limits
 
 void Default_frequency() {
   frequency = frequency_default;
-  UpdateFreq(frequency);
+  setFrequency(frequency);
 }   //  end   Default_frequency
 

@@ -6,7 +6,7 @@
 
 //void setup(); - Already defined by MPIDE
 //void loop(); - Already defined by MPIDE
-void Default_Settings();
+void loadDefaultSettings();
 uint32_t TimerOverFlow(uint32_t);
 
 #endif

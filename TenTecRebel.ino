@@ -24,8 +24,8 @@ void setup() {
   pinMode(PIN_MEDIUM_A8, OUTPUT);    // Hardware control of I.F. filter Bandwidth
   pinMode(PIN_NARROW_A9, OUTPUT);    // Hardware control of I.F. filter Bandwidth
   pinMode(PIN_SIDETONE, OUTPUT);    // sidetone enable
-  Default_Settings();
-  pinMode (PIN_BAND_SELECT, INPUT);     // select
+  loadDefaultSettings();
+  pinMode(PIN_BAND_SELECT, INPUT);     // select
   AD9834_init();
   AD9834_reset();                             // low to high
   Band_Set_40_20M();
@@ -43,14 +43,14 @@ void loop() {
   digitalWrite(FSYNC_BIT, HIGH);  // 
   digitalWrite(SCLK_BIT, HIGH);  //
 
-  RIT_Read();
+  readRITValue();
 
-  Multi_Function(); 
+  pollMultifunctionButton(); 
 
-  Encoder();
+  pollRotaryEncoder();
 
   frequency_tune  = frequency + RitFreqOffset;
-  UpdateFreq(frequency_tune);
+  setFrequency(frequency_tune);
 
   TX_routine();
 
@@ -64,7 +64,7 @@ void loop() {
 
 } //end loop()
 
-void Default_Settings() {
+void loadDefaultSettings() {
   digitalWrite(PIN_MULTIFUNCTION_GREEN, HIGH); 
   digitalWrite(PIN_MULTIFUNCTION_YELLOW, LOW);
   digitalWrite(PIN_MULTIFUNCTION_RED, LOW);
@@ -76,7 +76,7 @@ void Default_Settings() {
   digitalWrite (PIN_TUNE_STEP_LED, LOW);
   digitalWrite (PIN_SIDETONE, LOW);
   digitalWrite (FREQ_REGISTER_BIT, LOW);
-} //end Default_Settings()
+} //end loadDefaultSettings()
 
 uint32_t TimerOverFlow(uint32_t currentTime) {
   return (currentTime + CORE_TICK_RATE*(1));//the Core Tick Rate is 1ms

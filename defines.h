@@ -2,7 +2,7 @@
 #define DEFINES_H
 
 #define __NAME__                            "TenTec Rebel 506 (KE4UKZ)"
-#define __VERSION__                         "1.0.2"
+#define __VERSION__                         "1.0.3"
 
 #define SDATA_BIT                           10          //  keep!
 #define SCLK_BIT                            8           //  keep!

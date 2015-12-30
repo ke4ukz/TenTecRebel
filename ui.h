@@ -1,13 +1,13 @@
 #include "globals.h"
 #include "defines.h"
 
-void Encoder();
+void pollRotaryEncoder();
 void Step_Flash();
 void stop_led_on();
 void stop_led_off();
-void Multi_Function();
+void pollMultifunctionButton();
 void Step_Function();
-void  Selection();
+void  pollSelectButton();
 void Step_Select();
 void MF_G();
 void MF_Y();
