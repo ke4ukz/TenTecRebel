@@ -43,11 +43,11 @@ Two-way communication between the radio and a computer is achieved over the USB 
 Each message contains a header byte (0xee), a data type byte, an optional argument, and a footer byte (0xff). At this time, no checksum is utilized. Messages may be either an immediate command or status with no data, may contain a numeric data portion of four bytes, or a variable-length string.
 
 ## Output Messages
-These message are sent from the radio to the computer
+These message are sent from the radio to the computer:
 
 Message | Number | Data Type | Description
 --------|--------|-----------|------------
-Text | 0x00 | Variable-length string
+Text | 0x00 | Variable-length string | Text to display to the user
 Transmit Start | 0x01 | None | Radio transmitting
 Transmit End | 0x02 | None | Transmission ended (radio receiving)
 Voltage In | 0x03 | Integer | 0 to 1023 (raw ADC reading, multiply by 0.01611328125 for actual volts)
@@ -67,7 +67,7 @@ Decoder Enable | 0x10 | Boolean | Morse code decoder enabled or disabled (0=off,
 Decode Threshhold | 0x11 | Integer | Audio level required for a signal to be considered for decoding (0 to 1023)
 
 ## Input Messages
-These messages are sent from the computer to control the radio
+These messages are sent from the computer to control the radio:
 
 Message | Number | Data Type | Description
 --------|--------|-----------|------------
@@ -82,6 +82,3 @@ Set User Mode | 0x87 | Integer | Set user mode (0, 1, or 2); not used
 Set Keyer Mode | 0x88 | Boolean | Enable or diable the iambic keyer (0=straight key, 1=iambic keyer)
 Set Morse Decoder | 0x89 | Boolean | Enable or disable the Morse decoder (0=disabled, 1=enabled)
 Set Morse Decoding Threshhold | 0x8a | Integer | Set audio level required for a signal to be considered for decoding (0 to 1023)
-
-
-
