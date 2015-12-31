@@ -29,8 +29,8 @@ void tuneDown() {
 void setFrequency(long txFreq) {
   if (!isTransmitting) {
     long rxFreq;
-    dssSetRXFreq( rxFreq  );
     rxFreq = txFreq + RitFrequencyOffset;
+    dssSetRXFreq( rxFreq  );
     dssSetTXFreq( txFreq + IF  );
     currentFrequency = txFreq;
     serialSend(SERIAL_TXFREQUENCY, txFreq + IF);
@@ -41,6 +41,7 @@ void setFrequency(long txFreq) {
 void setTransmit(bool tx) {
   if (!isTransmitting && tx) {
     serialSend(SERIAL_TXSTART);
+    digitalWrite(PIN_TT_LED, HIGH);
     digitalWrite(FREQ_REGISTER_BIT, HIGH);
     digitalWrite(PIN_TRANSMIT, HIGH);
     digitalWrite(PIN_SIDETONE, HIGH);
@@ -49,6 +50,7 @@ void setTransmit(bool tx) {
     digitalWrite(PIN_TRANSMIT, LOW);
     digitalWrite(FREQ_REGISTER_BIT, LOW);
     digitalWrite(PIN_SIDETONE, LOW);
+    digitalWrite(PIN_TT_LED, LOW);
     isTransmitting = false;
     serialSend(SERIAL_TXEND);
   }

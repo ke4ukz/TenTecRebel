@@ -7,7 +7,7 @@ void setup() {
   pinMode(RESET_BIT, OUTPUT);    // reset
   pinMode(FREQ_REGISTER_BIT, OUTPUT);    // freq register select
   pinMode(PIN_TRANSMIT, OUTPUT);
-  pinMode(PIN_TUNE_STEP_LED, OUTPUT);
+  pinMode(PIN_TT_LED, OUTPUT);
   pinMode(PIN_MULTIFUNCTION_GREEN, OUTPUT);    // Band width
   pinMode(PIN_MULTIFUNCTION_YELLOW, OUTPUT);    // Step size
   pinMode(PIN_MULTIFUNCTION_RED, OUTPUT);    // Other
@@ -80,7 +80,7 @@ void loadDefaultSettings() {
   digitalWrite(PIN_SELECT_GREEN, LOW);
 
   digitalWrite (PIN_TRANSMIT, LOW);
-  digitalWrite (PIN_TUNE_STEP_LED, LOW);
+  digitalWrite (PIN_TT_LED, LOW);
   digitalWrite (PIN_SIDETONE, LOW);
   digitalWrite (FREQ_REGISTER_BIT, LOW);
 

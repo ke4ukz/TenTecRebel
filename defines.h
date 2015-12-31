@@ -2,7 +2,7 @@
 #define DEFINES_H
 
 #define __NAME__                            "TenTec Rebel 506 (KE4UKZ)"
-#define __VERSION__                         "1.0.10"
+#define __VERSION__                         "1.0.11"
 
 #define SDATA_BIT                           10          //  keep!
 #define SCLK_BIT                            8           //  keep!
@@ -21,7 +21,7 @@
 #define PIN_KEY_DIT                         32          // Physical pin attached to the "dit" input
 #define PIN_TRANSMIT                        38          // Physical pin attached to the transmitter key
 
-#define PIN_TUNE_STEP_LED                   24          // ill flash every 100/1khz/10khz is tuned and when band end is reached
+#define PIN_TT_LED                          24          //
 #define PIN_BAND_SELECT                     41          // if shorting block on only one pin 20m(1) on both pins 40m(0)
 #define PIN_MULTIFUNCTION_BUTTON            2           // Multifunction button input pin
 #define PIN_MULTIFUNCTION_GREEN             34          // For now assigned to BW (Band width)
@@ -84,6 +84,9 @@
 #define SERIAL_TUNE_DOWN                    0x82
 #define SERIAL_SET_WPM                      0x83
 #define SERIAL_SEND_CHAR                    0x84
+#define SERIAL_SET_BANDWIDTH                0x85
+#define SERIAL_SET_STEPSIZE                 0x86
+#define SERIAL_SET_USER                     0x87
 
 #define SERIALSTEP_IDLE                     0
 #define SERIALSTEP_EXPECT_TYPE              1

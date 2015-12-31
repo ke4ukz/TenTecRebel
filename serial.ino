@@ -19,6 +19,7 @@ void serialDump() {
 void processSerialCommand() {
   switch (incomingDataType) {
     case SERIAL_SET_FREQUENCY:
+      setFrequency(bandLimit(incomingData - IF));
       break;
     case SERIAL_TUNE_UP:
       tuneUp();
