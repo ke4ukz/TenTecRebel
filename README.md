@@ -28,7 +28,8 @@ Two-way communication between the radio and a computer is achieved over the USB 
 ## Message Format
 Each message contains a header byte (0xee), a data type byte, an optional argument, and a footer byte (0xff). At this time, no checksum is utilized. Messages may be either an immediate command or status with no data, may contain a numeric data portion of four bytes, or a variable-length string.
 
-## Messages
+## Output Messages
+These message are sent from the radio to the computer
 
 Message | Number | Data Type | Description
 --------|--------|-----------|------------
@@ -43,10 +44,27 @@ Signal Strength | 0x07 | Integer | Relative signal strength (0 to 1023, meaningf
 Keyer Speed | 0x08 | Integer | Morse code keyer speed in Words Per Minute (WPM)
 Received Character | 0x09 | ASCI Character |Single character received by Morse decoder
 Character Sent | 0x0a | None | Character sent by Morse encoder has finished sending
-Filter Bandwidth | 0x0b | Integer | Filter bandwidth selection (0=2.5KHz, 1=1.5KHz, 2=800Hz)
-Tuning Step Size | 0x0c | Integer | Tuning step size selection (0=100Hz, 1=1KHz, 2=10KHz)
-User Mode | 0x0d | Integer | User mode selected (0, 1, or 2); not used
-Keyer Enabled | 0x0e | Boolean | Enable or disable the keyer (0=straight key, 1=iambic keyer)
+Filter Bandwidth | 0x0b | Integer | Current filter bandwidth selection (0=2.5KHz, 1=1.5KHz, 2=800Hz)
+Tuning Step Size | 0x0c | Integer | Current tuning step size selection (0=100Hz, 1=1KHz, 2=10KHz)
+User Mode | 0x0d | Integer | Current user mode selected (0, 1, or 2); not used
+Keyer Enabled | 0x0e | Boolean | Keyer enabled or disabled (0=straight key, 1=iambic keyer)
 Initialization Finished | 0x0f | None | Radio initialization has finished and commands may now be sent
-Decoder Enable | 0x10 | Boolean | Enable or disable Morse code decoder (0=off, 1=on)
+Decoder Enable | 0x10 | Boolean | Morse code decoder enabled or disabled (0=off, 1=on)
 Decode Threshhold | 0x11 | Integer | Audio level required for a signal to be considered for decoding (0 to 1023)
+
+## Input Messages
+These messages are sent from the computer to control the radio
+
+Message | Number | Data Type | Description
+--------|--------|-----------|------------
+Set Frequency | 0x80 | Integer | New frequency in Hz (must be valid for the selected band)
+Tune Up | 0x81 | None | Tune up a step (based on currently selected tuning step)
+Tune Down | 0x82 | None | Tune down a step (based on currently selected tuning step)
+Set Keyer Speed | 0x83 | Integer | Set keyer speed in WPM
+Send Character | 0x84 | ASCII Character | Send a character using the Morse encoder (only available when the iambic keyer is enabled)
+Set Filter Bandwidth | 0x85 | Integer | Set filter width (0=2.5KHz, 1=1.5KHz, 2=800Hz)
+Set Tuning Step Size | 0x86 | Integer | Set tuning step size (0=100Hz, 1=1KHz, 2=10KHz)
+Set User Mode | 0x87 | Integer | Set user mode (0, 1, or 2); not used
+Set Keyer Mode | 0x88 | Boolean | Enable or diable the iambic keyer (0=straight key, 1=iambic keyer)
+Set Morse Decoder | 0x89 | Boolean | Enable or disable the Morse decoder (0=disabled, 1=enabled)
+Set Morse Decoding Threshhold | 0x8a | Integer | Set audio level required for a signal to be considered for decoding (0 to 1023)
