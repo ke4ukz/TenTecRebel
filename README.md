@@ -65,6 +65,7 @@ Keyer Enabled | 0x0e | Boolean | Keyer enabled or disabled (0=straight key, 1=ia
 Initialization Finished | 0x0f | None | Radio initialization has finished and commands may now be sent
 Decoder Enable | 0x10 | Boolean | Morse code decoder enabled or disabled (0=off, 1=on)
 Decode Threshhold | 0x11 | Integer | Audio level required for a signal to be considered for decoding (0 to 1023)
+Band Changed| 0x12 | Integer | Selected band (0=20 meters, 1=40 meters)
 
 ## Input Messages
 These messages are sent from the computer to control the radio:
