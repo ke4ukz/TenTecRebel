@@ -56,7 +56,7 @@ Receive Frequency | 0x05 | Integer |Receiving (RIT-adjusted) frequency in Hz
 Output Power | 0x06 | Integer | RF voltage reading for output power (0 to 1023, meaningful-value calculation forthcoming)
 Signal Strength | 0x07 | Integer | Relative signal strength (0 to 1023, meaningful-value calculation forthcoming)
 Keyer/Decoder Speed | 0x08 | Integer | Morse code keyer and decoder speed in Words Per Minute (WPM)
-Received Character | 0x09 | ASCI Character |Single character received by Morse decoder
+Received Character | 0x09 | ASCII Character |Single character received by Morse decoder
 Character Sent | 0x0a | None | Character sent by Morse encoder has finished sending
 Filter Bandwidth | 0x0b | Integer | Current filter bandwidth selection (0=2.5KHz, 1=1.5KHz, 2=800Hz)
 Tuning Step Size | 0x0c | Integer | Current tuning step size selection (0=100Hz, 1=1KHz, 2=10KHz)
