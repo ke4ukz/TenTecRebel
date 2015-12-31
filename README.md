@@ -22,6 +22,20 @@ Some features in the original firmware have been removed or changed because they
 ## Computer Interface
 Currently the only computer interface available is for testing and debugging. In the future there will be a cross-platform application to act as a front-end for the radio.
 
+## Default Settings
+The following are the default values for each setting:
+
+Setting | Value
+--------|------
+Frequency | 7.03MHZ for 40 meters or 14.06MHz for 20 meters
+Filter Bandwidth | 2.5KHz
+Tuning Step Size | 100Hz
+Iambic Keyer | Enabled
+Morse Decoder | Enabled
+Keyer/Decoder Speed | 20WPM
+Decode Threshhold | 700
+User Mode | 1 (not used)
+
 # Serial Protocol
 Two-way communication between the radio and a computer is achieved over the USB virtual serial port using a custom protocol.
 
@@ -41,7 +55,7 @@ Transmit Frequency | 0x04 | Integer | Transmitting frequency in Hz
 Receive Frequency | 0x05 | Integer |Receiving (RIT-adjusted) frequency in Hz
 Output Power | 0x06 | Integer | RF voltage reading for output power (0 to 1023, meaningful-value calculation forthcoming)
 Signal Strength | 0x07 | Integer | Relative signal strength (0 to 1023, meaningful-value calculation forthcoming)
-Keyer Speed | 0x08 | Integer | Morse code keyer speed in Words Per Minute (WPM)
+Keyer/Decoder Speed | 0x08 | Integer | Morse code keyer and decoder speed in Words Per Minute (WPM)
 Received Character | 0x09 | ASCI Character |Single character received by Morse decoder
 Character Sent | 0x0a | None | Character sent by Morse encoder has finished sending
 Filter Bandwidth | 0x0b | Integer | Current filter bandwidth selection (0=2.5KHz, 1=1.5KHz, 2=800Hz)
@@ -60,7 +74,7 @@ Message | Number | Data Type | Description
 Set Frequency | 0x80 | Integer | New frequency in Hz (must be valid for the selected band)
 Tune Up | 0x81 | None | Tune up a step (based on currently selected tuning step)
 Tune Down | 0x82 | None | Tune down a step (based on currently selected tuning step)
-Set Keyer Speed | 0x83 | Integer | Set keyer speed in WPM
+Set Keyer/Decoder Speed | 0x83 | Integer | Set keyer and decoder speed in WPM
 Send Character | 0x84 | ASCII Character | Send a character using the Morse encoder (only available when the iambic keyer is enabled)
 Set Filter Bandwidth | 0x85 | Integer | Set filter width (0=2.5KHz, 1=1.5KHz, 2=800Hz)
 Set Tuning Step Size | 0x86 | Integer | Set tuning step size (0=100Hz, 1=1KHz, 2=10KHz)
@@ -68,3 +82,6 @@ Set User Mode | 0x87 | Integer | Set user mode (0, 1, or 2); not used
 Set Keyer Mode | 0x88 | Boolean | Enable or diable the iambic keyer (0=straight key, 1=iambic keyer)
 Set Morse Decoder | 0x89 | Boolean | Enable or disable the Morse decoder (0=disabled, 1=enabled)
 Set Morse Decoding Threshhold | 0x8a | Integer | Set audio level required for a signal to be considered for decoding (0 to 1023)
+
+
+
