@@ -46,3 +46,5 @@ v1.0.12 - 2015-12-31
 	ADD Blink all LEDs at startup
 	ADD Keyer on/off serial command
 	ADD Initialization finished serial message
+v1.0.13
+	ADD Morse code decoder

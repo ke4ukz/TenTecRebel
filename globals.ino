@@ -38,4 +38,6 @@ char morseSignal[] = "......";
 int morseSignalPos = 0;
 int morseSignals = 0;
 bool keyerOn = true;
+bool decoderOn = true;
+int decodeThreshhold = 700;
 

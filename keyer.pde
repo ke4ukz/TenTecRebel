@@ -94,5 +94,90 @@ void sendNextSignal() {
 
 void setKeyer(bool turnon) {
   keyerOn = turnon;
-  serialSend(SERIAL_KEYER, (keyerOn == 0 ? false : true) );
+  serialSend(SERIAL_KEYER, (keyerOn == true ? 1 : 0) );
+}
+
+void setDecoder(bool turnon) {
+  decoderOn = turnon;
+  serialSend(SERIAL_DECODER, (decoderOn == true ? 1 : 0) );
+}
+
+void setDecodeThreshhold(int thresh) {
+  decodeThreshhold = thresh;
+  serialSend(SERIAL_DECODETHRESHHOLD, thresh);
+}
+
+void decodeRoutine() {
+  static unsigned long markTime = 0;    // timers for mark and space in morse signal
+  static unsigned long spaceTime = 0;   // E=MC^2 ;p
+  static unsigned long lastDebounceTime = 0;
+  static int morseTableJumper = (morseTreetop+1)/2;
+  static int morseTablePointer = morseTreetop;
+  static boolean morseSignalState = false;
+  static boolean morseSpace = false;    // Flag to prevent multiple received spaces
+  static boolean gotLastSig = true;     // Flag that the last received morse signal is decoded as dot or dash
+
+  int audioMorse = analogRead(PIN_CWREAD);
+  unsigned long currentTime = millis();
+  // Check for an audio signal...
+  if (audioMorse > decodeThreshhold) {
+    // If this is a new morse signal, reset morse signal timer
+    if (currentTime - lastDebounceTime > ditDuration/2) {
+      markTime = currentTime;
+      morseSignalState = true; // there is currently a signal
+    }
+    lastDebounceTime = currentTime;
+  } else {
+    // if this is a new pause, reset space time
+    if (currentTime - lastDebounceTime > ditDuration/2 && morseSignalState == true) {
+      spaceTime = lastDebounceTime; // not too far off from last received audio
+      morseSignalState = false;        // No more signal
+    }
+  }
+
+  if (!morseSignalState) {
+    if (!gotLastSig) {
+      if (morseTableJumper > 0) {
+        // if pause for more than half a dot, get what kind of signal pulse (dot/dash) received last
+        if (millis() - spaceTime > ditDuration/2) {
+          // if signal for more than 1/4 dotTime, take it as a valid morse pulse
+          if (spaceTime-markTime > ditDuration/4) {
+            // if signal for less than half a dash, take it as a dot, else if not, take it as a dash
+            // (dashes can be really really long...)
+            if (spaceTime-markTime < (ditDuration*3)/2) {
+              morseTablePointer -= morseTableJumper;
+            } else {
+              morseTablePointer += morseTableJumper;
+            }
+            morseTableJumper /= 2;
+            gotLastSig = true;
+          }
+        }
+      } else { // error if too many pulses in one morse character
+        //Serial.println("<ERROR: unrecognized signal!>");
+        serialSend(SERIAL_RECEIVE_CHAR, '~');
+        gotLastSig = true;
+        morseTableJumper = (morseTreetop+1)/2;
+        morseTablePointer = morseTreetop;
+      }
+    }
+    // Write out the character if pause is longer than 2/3 dash time (2 dots) and a character received
+    if ((millis()-spaceTime >= (ditDuration*2)) && (morseTableJumper < ((morseTreetop+1)/2))) {
+      char morseChar = morseTable[morseTablePointer];
+      //Serial.print(morseChar);
+      serialSend(SERIAL_RECEIVE_CHAR, morseChar);
+      morseTableJumper = (morseTreetop+1)/2;
+      morseTablePointer = morseTreetop;
+    }
+    // Write a space if pause is longer than 2/3rd wordspace
+    if (millis()-spaceTime > ((ditDuration*7)*2/3) && morseSpace == false) {
+      serialSend(SERIAL_RECEIVE_CHAR, ' ');
+      morseSpace = true ; // space written-flag
+    }
+    
+  } else {
+    // while there is a signal, reset some flags
+    gotLastSig = false;
+    morseSpace = false;
+  }
 }

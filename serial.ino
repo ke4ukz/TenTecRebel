@@ -54,6 +54,12 @@ void processSerialCommand() {
     case SERIAL_SET_KEYER:
       setKeyer(incomingData == 0 ? false : true);
       break;
+    case SERIAL_SET_DECODER:
+      setDecoder(incomingData == 0 ? false : true);
+      break;
+    case SERIAL_SET_DECODETHRESHHOLD:
+      setDecodeThreshhold(incomingData);
+      break;
   }
 }
 

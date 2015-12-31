@@ -38,5 +38,6 @@ extern char morseSignal[];
 extern int morseSignalPos;
 extern int morseSignals;
 extern bool keyerOn;
-
+extern bool decoderOn;
+extern int decodeThreshhold;
 #endif

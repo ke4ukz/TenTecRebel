@@ -77,9 +77,14 @@ void loop() {
     setTransmit( getDitKey() );
   }
 
+  //Run the decoder if it's turned on
+  if (decoderOn) {
+    decodeRoutine();
+  }
 
   //Report data
   if((millis() - lastSerialDump) >= serialReportInterval) {
+    //
     serialDump();
     lastSerialDump = millis();
   }
@@ -101,6 +106,8 @@ void loadDefaultSettings() {
   setStepSize(STEP_100HZ);
   setMultifunction(MULTIFUNCTION_1);
   setFunction(FUNCTION_1);
+  setDecoder(true);
+  setDecodeThreshhold(700);
   setKeyer(true);
   setKeyerWPM(20);
 } //end loadDefaultSettings()

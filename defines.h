@@ -2,7 +2,7 @@
 #define DEFINES_H
 
 #define __NAME__                            "TenTec Rebel 506 (KE4UKZ)"
-#define __VERSION__                         "1.0.12"
+#define __VERSION__                         "1.0.13"
 
 //PWM on pins 3, 5, 6, 9, & 10
 
@@ -40,7 +40,6 @@
 #define PIN_SMETER                          A1          // To give a realitive signal strength based on AGC voltage.
 #define PIN_RIT                             A0          // pin that the sensor is attached to used for a rit routine later.
 
-
 #define MULTIFUNCTION_1                     0
 #define MULTIFUNCTION_2                     1
 #define MULTIFUNCTION_3                     2
@@ -61,9 +60,6 @@
 #define USER_2                              1           //User-defined mode 2
 #define USER_3                              2           //User-defined mode 3
 
-#define KEYER_OFF                           0
-#define KEYER_ON                            1
-
 #define BAND_20METERS                       0
 #define BAND_40METERS                       1
 #define BANDLIMIT_20_TOP                    5.35e6
@@ -74,6 +70,7 @@
 #define DEFAULT_20METERS                    5.06e6      // Band frequency - IF, LOW side injection 20 meter range 5 > 5.35 mhz
 #define REFERENCE                           49.99975e6  // for ad9834 this may be tweaked in software to fine tune the Radio
 
+//Data items sent from the Rebel to the computer
 #define SERIAL_HEADER                       0xee
 #define SERIAL_FOOTER                       0xff
 #define SERIAL_STRING                       0x00
@@ -86,13 +83,16 @@
 #define SERIAL_SMETER                       0x07
 #define SERIAL_WPM                          0x08
 #define SERIAL_RECEIVE_CHAR                 0x09
-#define SERIAL_CHAR_SENT                    0x10
-#define SERIAL_BANDWIDTH                    0x11
-#define SERIAL_STEPSIZE                     0x12
-#define SERIAL_USER                         0x13
-#define SERIAL_KEYER                        0x14
-#define SERIAL_INITDONE                     0x15
+#define SERIAL_CHAR_SENT                    0x0a
+#define SERIAL_BANDWIDTH                    0x0b
+#define SERIAL_STEPSIZE                     0x0c
+#define SERIAL_USER                         0x0d
+#define SERIAL_KEYER                        0x0e
+#define SERIAL_INITDONE                     0x0f
+#define SERIAL_DECODER                      0x10
+#define SERIAL_DECODETHRESHHOLD             0x11
 
+//Commands received from the computer
 #define SERIAL_SET_FREQUENCY                0x80
 #define SERIAL_TUNE_UP                      0x81
 #define SERIAL_TUNE_DOWN                    0x82
@@ -102,7 +102,10 @@
 #define SERIAL_SET_STEPSIZE                 0x86
 #define SERIAL_SET_USER                     0x87
 #define SERIAL_SET_KEYER                    0x88
+#define SERIAL_SET_DECODER                  0x89
+#define SERIAL_SET_DECODETHRESHHOLD         0x8a
 
+//Steps in processing incoming commands
 #define SERIALSTEP_IDLE                     0
 #define SERIALSTEP_EXPECT_TYPE              1
 #define SERIALSTEP_EXPECT_4MORE             2
