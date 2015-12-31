@@ -35,8 +35,14 @@ v1.0.9 - 2015-12-30
 v1.0.10 - 2015-12-30
 	CHG Moved keyer methods to keyer.ino
 	ADD Added morse encoder serial command
-v1.0.11
+v1.0.11 - 2015-12-30
 	CHG Set TT LED to light when transmitting
 	ADD Added 7 x ditDuration pause when space character is received
 	FIX Fixed tuning so the radio actually tunes
 	ADD Added set frequency serial command
+v1.0.12 - 2015-12-31
+	CHG Reorganized multifunction and select button methods to be more compact
+	ADD Added reporting and changing of modes via serial commands
+	ADD Blink all LEDs at startup
+	ADD Keyer on/off serial command
+	ADD Initialization finished serial message

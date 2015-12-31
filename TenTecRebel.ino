@@ -25,60 +25,72 @@ void setup() {
   pinMode(PIN_SELECT_BUTTON, INPUT);     //  Selection form the above
   pinMode(PIN_BAND_SELECT, INPUT);     // select
   
+  //Turn the LEDs on
+  digitalWrite(PIN_MULTIFUNCTION_RED, HIGH);
+  digitalWrite(PIN_SELECT_RED, HIGH);
+  digitalWrite(PIN_MULTIFUNCTION_YELLOW, HIGH);
+  digitalWrite(PIN_SELECT_YELLOW, HIGH);
+  digitalWrite(PIN_MULTIFUNCTION_GREEN, HIGH);
+  digitalWrite(PIN_SELECT_GREEN, HIGH);
+  digitalWrite(PIN_TT_LED, HIGH);
+  delay(1000);
+  
   serialInit();
   loadDefaultSettings();
   AD9834_init();
-  AD9834_reset();                             // low to high
+  AD9834_reset();
+  serialSend(SERIAL_INITDONE);
 } //end setup()
 
 void loop() {
   digitalWrite(FSYNC_BIT, HIGH);  // 
   digitalWrite(SCLK_BIT, HIGH);  //
 
+  //Check for user input
   pollRIT();
-
   pollMultifunctionButton(); 
-
+  pollSelectButton();
   pollRotaryEncoder();
 
-  if (!isTransmitting) {
-    if (millis() >= transmitInhibitUntil) {
-      if (!morseSending) {
-        if (getDitKey()) {
-          sendDit();
-        } else if (getDahKey()) {
-          sendDah();
+  if (keyerOn) {
+    //If not transmitting and not pausing between dits or dahs, see if either the user has tapped the key or send a character
+    if (!isTransmitting) {
+      if (millis() >= transmitInhibitUntil) {
+        if (!morseSending) {
+          if (getDitKey()) {
+            sendDit();
+          } else if (getDahKey()) {
+            sendDah();
+          }
+        } else {
+          sendNextSignal();
         }
-      } else {
-        sendNextSignal();
       }
     }
+    //If we're transmitting, see if we should stop yet
+    if ((millis() >= transmitUntil) && isTransmitting) {
+      setTransmit(false);
+      transmitInhibitUntil = (millis() + ditDuration);
+    }
+  } else {
+    //No keyer, treat it as a straight key
+    setTransmit( getDitKey() );
   }
 
-  if ((millis() >= transmitUntil) && isTransmitting) {
-    setTransmit(false);
-    transmitInhibitUntil = (millis() + ditDuration);
-  }
 
+  //Report data
   if((millis() - lastSerialDump) >= serialReportInterval) {
     serialDump();
     lastSerialDump = millis();
   }
   
+  //Process incoming serial data
   while (Serial.available() > 0) {
     serialReceive((byte)Serial.read());
   }
 } //end loop()
 
 void loadDefaultSettings() {
-  digitalWrite(PIN_MULTIFUNCTION_GREEN, HIGH); 
-  digitalWrite(PIN_MULTIFUNCTION_YELLOW, LOW);
-  digitalWrite(PIN_MULTIFUNCTION_RED, LOW);
-
-  digitalWrite(PIN_SELECT_GREEN, HIGH);
-  digitalWrite(PIN_SELECT_YELLOW, LOW);
-  digitalWrite(PIN_SELECT_GREEN, LOW);
-
   digitalWrite (PIN_TRANSMIT, LOW);
   digitalWrite (PIN_TT_LED, LOW);
   digitalWrite (PIN_SIDETONE, LOW);
@@ -87,6 +99,8 @@ void loadDefaultSettings() {
   setBandwidth(BANDWIDTH_WIDE);
   setBand(getCurrentBand() );
   setStepSize(STEP_100HZ);
+  setMultifunction(MULTIFUNCTION_1);
+  setFunction(FUNCTION_1);
+  setKeyer(true);
   setKeyerWPM(20);
 } //end loadDefaultSettings()
-

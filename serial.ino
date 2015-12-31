@@ -33,6 +33,27 @@ void processSerialCommand() {
     case SERIAL_SEND_CHAR:
       sendCharacter((char)(incomingData & 0xff));
       break;
+    case SERIAL_SET_BANDWIDTH:
+      Step_Multi_Function_Button = MULTIFUNCTION_1;
+      setMultifunction(Step_Multi_Function_Button);
+      Step_Select_Button = (int)(incomingData & 0xff);
+      setFunction(Step_Select_Button);
+      break;
+    case SERIAL_SET_STEPSIZE:
+      Step_Multi_Function_Button = MULTIFUNCTION_2;
+      setMultifunction(Step_Multi_Function_Button);
+      Step_Select_Button = (int)(incomingData & 0xff);
+      setFunction(Step_Select_Button);
+      break;
+    case SERIAL_SET_USER:
+      Step_Multi_Function_Button = MULTIFUNCTION_3;
+      setMultifunction(Step_Multi_Function_Button);
+      Step_Select_Button = (int)(incomingData & 0xff);
+      setFunction(Step_Select_Button);
+      break;
+    case SERIAL_SET_KEYER:
+      setKeyer(incomingData == 0 ? false : true);
+      break;
   }
 }
 

@@ -37,4 +37,5 @@ char morseTable[] = "*5*H*4*S***V*3*I***F***U?*_**2*E***L\"**R*+.****A***P@**W**
 char morseSignal[] = "......";
 int morseSignalPos = 0;
 int morseSignals = 0;
+bool keyerOn = true;
 

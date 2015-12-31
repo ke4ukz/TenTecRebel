@@ -10,5 +10,6 @@ bool getDahKey();
 void setKeyerWPM(int);
 void sendCharacter(char);
 void sendNextSignal();
+void setKeyer(bool);
 
 #endif

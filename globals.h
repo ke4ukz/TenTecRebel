@@ -37,5 +37,6 @@ extern char morseTable[];
 extern char morseSignal[];
 extern int morseSignalPos;
 extern int morseSignals;
+extern bool keyerOn;
 
 #endif

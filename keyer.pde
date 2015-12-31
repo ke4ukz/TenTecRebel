@@ -91,3 +91,8 @@ void sendNextSignal() {
   }
   morseSignalPos++;
 }
+
+void setKeyer(bool turnon) {
+  keyerOn = turnon;
+  serialSend(SERIAL_KEYER, (keyerOn == 0 ? false : true) );
+}
