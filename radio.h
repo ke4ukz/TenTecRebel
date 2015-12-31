@@ -4,6 +4,8 @@
 #define RADIO_H
 int getCurrentBand();
 void setBand(int);
+void tuneUp();
+void tuneDown();
 void setFrequency(long);
 void setTransmit(bool);
 long bandLimit(long);

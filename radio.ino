@@ -18,6 +18,14 @@ void setBand(int band) {
   defaultFrequency();
 }
 
+void tuneUp() {
+  setFrequency(bandLimit(currentFrequency + frequency_step));
+}
+
+void tuneDown() {
+  setFrequency(bandLimit(currentFrequency - frequency_step));
+}
+
 void setFrequency(long txFreq) {
   if (!isTransmitting) {
     long rxFreq;

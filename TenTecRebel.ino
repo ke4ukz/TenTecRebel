@@ -62,6 +62,10 @@ void loop() {
     serialDump();
     lastSerialDump = millis();
   }
+  
+  while (Serial.available() > 0) {
+    serialReceive((byte)Serial.read());
+  }
 } //end loop()
 
 void loadDefaultSettings() {
@@ -81,5 +85,6 @@ void loadDefaultSettings() {
   setBandwidth(BANDWIDTH_WIDE);
   setBand(getCurrentBand() );
   setStepSize(STEP_100HZ);
+  setKeyerWPM(20);
 } //end loadDefaultSettings()
 

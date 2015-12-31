@@ -2,7 +2,6 @@
 #define TENTECREBEL_INO
 #include "defines.h"
 #include "globals.h"
-#include <inttypes.h>
 
 //void setup(); - Already defined by MPIDE
 //void loop(); - Already defined by MPIDE

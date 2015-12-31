@@ -8,13 +8,18 @@ bool getDahKey() {
   return (digitalRead(PIN_KEY_DAH) == LOW);
 }
 
+void setKeyerWPM(int wpm) {
+  ditDuration = 1200 / wpm;
+  serialSend(SERIAL_WPM, wpm);
+}
+
 void pollRotaryEncoder() {
-  n = digitalRead(PIN_ENCODER0A);
-  if ((encoder0PinALast == LOW) && (n == HIGH)) {
+  int n = digitalRead(PIN_ENCODER0A);
+  if ( (encoder0PinALast == LOW) && (n == HIGH) ) {
     if (digitalRead(PIN_ENCODER0B) == LOW) {
-      setFrequency(bandLimit(currentFrequency - frequency_step));
+      tuneDown();
     } else {
-      setFrequency(bandLimit(currentFrequency + frequency_step));
+      tuneUp();
     }
   } 
   encoder0PinALast = n;

@@ -2,7 +2,7 @@
 #define DEFINES_H
 
 #define __NAME__                            "TenTec Rebel 506 (KE4UKZ)"
-#define __VERSION__                         "1.0.8"
+#define __VERSION__                         "1.0.9"
 
 #define SDATA_BIT                           10          //  keep!
 #define SCLK_BIT                            8           //  keep!
@@ -67,13 +67,29 @@
 
 #define SERIAL_HEADER                       0xee
 #define SERIAL_FOOTER                       0xff
-#define SERIAL_STRING                       0
-#define SERIAL_TXSTART                      1
-#define SERIAL_TXEND                        2
-#define SERIAL_VOLTMETER                    3
-#define SERIAL_TXFREQUENCY                  4
-#define SERIAL_RXFREQUENCY                  5
-#define SERIAL_OUTPUTPOWER                  6
-#define SERIAL_SMETER                       7
+#define SERIAL_STRING                       0x00
+#define SERIAL_TXSTART                      0x01
+#define SERIAL_TXEND                        0x02
+#define SERIAL_VOLTMETER                    0x03
+#define SERIAL_TXFREQUENCY                  0x04
+#define SERIAL_RXFREQUENCY                  0x05
+#define SERIAL_OUTPUTPOWER                  0x06
+#define SERIAL_SMETER                       0x07
+#define SERIAL_WPM                          0x08
+#define SERIAL_RECEIVE_CHAR                 0x09
+
+#define SERIAL_SET_FREQUENCY                0x80
+#define SERIAL_TUNE_UP                      0x81
+#define SERIAL_TUNE_DOWN                    0x82
+#define SERIAL_SET_WPM                      0x83
+#define SERIAL_SEND_CHAR                    0x84
+
+#define SERIALSTEP_IDLE                     0
+#define SERIALSTEP_EXPECT_TYPE              1
+#define SERIALSTEP_EXPECT_4MORE             2
+#define SERIALSTEP_EXPECT_3MORE             3
+#define SERIALSTEP_EXPECT_2MORE             4
+#define SERIALSTEP_EXPECT_1MORE             5
+#define SERIALSTEP_EXPECT_FOOTER            6
 
 #endif

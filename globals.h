@@ -1,5 +1,6 @@
 #ifndef GLOBALS_H
 #define GLOBALS_H
+#include <inttypes.h>
 
 extern int RitReadValue;
 extern int RitFrequencyOffset;
@@ -11,10 +12,7 @@ extern int Selected_Other;
 extern unsigned long serialReportInterval;
 extern unsigned long ditDuration;
 
-extern int val;
-extern int encoder0Pos;
 extern int encoder0PinALast;
-extern int n;
 
 extern bool isTransmitting;
 extern unsigned long transmitUntil;
@@ -25,5 +23,9 @@ extern long frequency_step;
 extern long currentFrequency;
 extern long frequency_default;
 extern long IF;
+
+extern uint8_t currentSerialStep;
+extern uint8_t incomingDataType;
+extern uint32_t incomingData;
 
 #endif
