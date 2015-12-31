@@ -16,6 +16,7 @@ void setBand(int band) {
     IF *= -1;               //  HI side injection
   }
   defaultFrequency();
+  serialSend(SERIAL_BAND, band);
 }
 
 void tuneUp() {

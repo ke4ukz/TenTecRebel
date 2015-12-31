@@ -47,9 +47,11 @@ v1.0.12 - 2015-12-31
 	ADD Blink all LEDs at startup
 	ADD Keyer on/off serial command
 	ADD Initialization finished serial message
-v1.0.13 2015-12-31
+v1.0.13 - 2015-12-31
 	ADD Morse code decoder
-v1.0.14
+v1.0.14 - 2015-12-31
 	CHG Changed serialDump to only send when a value has changed
 	CHG Set boundaries for keyer speed (1 to 100WPM, if set to 0 resets to 20)
 	CHG Moved lastSerialDump out of global variables into loop() as static
+v1.0.15
+	ADD Added serial update on band select

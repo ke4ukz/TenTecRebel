@@ -91,6 +91,7 @@
 #define SERIAL_INITDONE                     0x0f
 #define SERIAL_DECODER                      0x10
 #define SERIAL_DECODETHRESHHOLD             0x11
+#define SERIAL_BAND                         0x12
 
 //Commands received from the computer
 #define SERIAL_SET_FREQUENCY                0x80
