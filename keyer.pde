@@ -19,6 +19,8 @@ bool getDahKey() {
 }
 
 void setKeyerWPM(int wpm) {
+  if (wpm <= 0) wpm = 20;
+  if (wpm > 100) wpm = 100;
   ditDuration = 1200 / wpm;
   serialSend(SERIAL_WPM, wpm);
 }

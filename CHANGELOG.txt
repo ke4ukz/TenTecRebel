@@ -28,6 +28,7 @@ v1.0.8 - 2015-12-30
 	DEL Removed a bunch of extra global variables
 	CHG Condensed bandwidth and stepsize methods into one
 	DEL Removed TimerOverflow stuff (didn't seem to be doing anything)
+	DEL Removed TEXTOUTPUT and BINARYOUTPUT; all data will be binary now
 v1.0.9 - 2015-12-30
 	CHG Cleaned up pollRotaryEncoder
 	DEL Removed some more unused global variables
@@ -46,5 +47,9 @@ v1.0.12 - 2015-12-31
 	ADD Blink all LEDs at startup
 	ADD Keyer on/off serial command
 	ADD Initialization finished serial message
-v1.0.13
+v1.0.13 2015-12-31
 	ADD Morse code decoder
+v1.0.14
+	CHG Changed serialDump to only send when a value has changed
+	CHG Set boundaries for keyer speed (1 to 100WPM, if set to 0 resets to 20)
+	CHG Moved lastSerialDump out of global variables into loop() as static

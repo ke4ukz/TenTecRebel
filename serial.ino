@@ -11,9 +11,25 @@ void serialInit() {
 }
 
 void serialDump() {
-  serialSend(SERIAL_VOLTMETER, getPowerIn() );
-  serialSend(SERIAL_OUTPUTPOWER, getPowerOut() );
-  serialSend(SERIAL_SMETER, getSignalStrength() );
+  static int lastPowerIn = 0;
+  static int lastPowerOut = 0;
+  static int lastSMeter = 0;
+  int powerIn = getPowerIn();
+  int powerOut = getPowerOut();
+  int sMeter = getSignalStrength();
+  
+  if (powerIn != lastPowerIn) {
+    serialSend(SERIAL_VOLTMETER, getPowerIn() );
+    lastPowerIn = powerIn;
+  }
+  if (powerOut != lastPowerOut) {
+    serialSend(SERIAL_OUTPUTPOWER, getPowerOut() );
+    lastPowerOut = powerOut;
+  }
+  if (sMeter != lastSMeter) {
+    serialSend(SERIAL_SMETER, getSignalStrength() );
+    lastSMeter = sMeter;
+  }
 } //end serialDump()
 
 void processSerialCommand() {

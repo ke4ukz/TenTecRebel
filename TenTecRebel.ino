@@ -43,6 +43,8 @@ void setup() {
 } //end setup()
 
 void loop() {
+  static unsigned long lastSerialDump = 0;
+  
   digitalWrite(FSYNC_BIT, HIGH);  // 
   digitalWrite(SCLK_BIT, HIGH);  //
 
@@ -84,7 +86,6 @@ void loop() {
 
   //Report data
   if((millis() - lastSerialDump) >= serialReportInterval) {
-    //
     serialDump();
     lastSerialDump = millis();
   }

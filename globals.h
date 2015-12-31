@@ -18,7 +18,6 @@ extern int encoder0PinALast;
 extern bool isTransmitting;
 extern unsigned long transmitUntil;
 extern unsigned long transmitInhibitUntil;
-extern unsigned long lastSerialDump;
 
 extern long frequency_step;
 extern long currentFrequency;

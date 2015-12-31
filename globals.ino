@@ -18,7 +18,6 @@ int encoder0PinALast = LOW;
 bool isTransmitting = false;
 unsigned long transmitUntil = 0;
 unsigned long transmitInhibitUntil = 0;
-unsigned long lastSerialDump = 0;
 
 long frequency_step;
 long currentFrequency = 0;
