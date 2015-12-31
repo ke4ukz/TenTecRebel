@@ -1,9 +1,10 @@
-#include "globals.h"
-#include "defines.h"
 #ifndef RADIO_H
 #define RADIO_H
+#include "globals.h"
+#include "defines.h"
 int getCurrentBand();
 void setBand(int);
+
 void tuneUp();
 void tuneDown();
 void setFrequency(long);

@@ -30,6 +30,7 @@ void processSerialCommand() {
       setKeyerWPM((int)(incomingData & 0x8fff));
       break;
     case SERIAL_SEND_CHAR:
+      sendCharacter((char)(incomingData & 0xff));
       break;
   }
 }

@@ -43,12 +43,14 @@ void loop() {
 
   if (!isTransmitting) {
     if (millis() >= transmitInhibitUntil) {
-      if (getDitKey()) {
-        transmitUntil = (millis() + ditDuration);
-        setTransmit(true);
-      } else if (getDahKey()) {
-        transmitUntil = (millis() + 3 * ditDuration);
-        setTransmit(true);
+      if (!morseSending) {
+        if (getDitKey()) {
+          sendDit();
+        } else if (getDahKey()) {
+          sendDah();
+        }
+      } else {
+        sendNextSignal();
       }
     }
   }

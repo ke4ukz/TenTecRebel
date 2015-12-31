@@ -1,6 +1,7 @@
 #ifndef GLOBALS_H
 #define GLOBALS_H
 #include <inttypes.h>
+#include "defines.h"
 
 extern int RitReadValue;
 extern int RitFrequencyOffset;
@@ -27,5 +28,14 @@ extern long IF;
 extern uint8_t currentSerialStep;
 extern uint8_t incomingDataType;
 extern uint32_t incomingData;
+
+extern bool morseSending;
+extern const int morseTreetop;
+extern const int morseTableLength;
+extern const int morseTreeLevels;
+extern char morseTable[];
+extern char morseSignal[];
+extern int morseSignalPos;
+extern int morseSignals;
 
 #endif

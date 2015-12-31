@@ -2,7 +2,7 @@
 #define DEFINES_H
 
 #define __NAME__                            "TenTec Rebel 506 (KE4UKZ)"
-#define __VERSION__                         "1.0.9"
+#define __VERSION__                         "1.0.10"
 
 #define SDATA_BIT                           10          //  keep!
 #define SCLK_BIT                            8           //  keep!
@@ -77,6 +77,7 @@
 #define SERIAL_SMETER                       0x07
 #define SERIAL_WPM                          0x08
 #define SERIAL_RECEIVE_CHAR                 0x09
+#define SERIAL_CHAR_SENT                    0x10
 
 #define SERIAL_SET_FREQUENCY                0x80
 #define SERIAL_TUNE_UP                      0x81

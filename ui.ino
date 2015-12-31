@@ -1,18 +1,5 @@
 #include "ui.h"
 
-bool getDitKey() {
-  return (digitalRead(PIN_KEY_DIT) == LOW);
-}
-
-bool getDahKey() {
-  return (digitalRead(PIN_KEY_DAH) == LOW);
-}
-
-void setKeyerWPM(int wpm) {
-  ditDuration = 1200 / wpm;
-  serialSend(SERIAL_WPM, wpm);
-}
-
 void pollRotaryEncoder() {
   int n = digitalRead(PIN_ENCODER0A);
   if ( (encoder0PinALast == LOW) && (n == HIGH) ) {

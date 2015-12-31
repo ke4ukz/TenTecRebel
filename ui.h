@@ -1,13 +1,12 @@
+#ifdef UI_H
+#define UI_H
+
 #include "globals.h"
 #include "defines.h"
 
-bool getDitKey();
-bool getDahKey();
+
 void pollRotaryEncoder();
 void pollRIT();
-void Step_Flash();
-void stop_led_on();
-void stop_led_off();
 void pollMultifunctionButton();
 void Step_Function();
 void pollSelectButton();
@@ -21,3 +20,5 @@ void S_R();
 void Other_1();
 void Other_2();
 void Other_3();
+
+#endif

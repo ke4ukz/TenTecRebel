@@ -1,3 +1,6 @@
+#ifndef DSS_H
+#define DSS_H
+
 #include "globals.h"
 #include "defines.h"
 
@@ -10,3 +13,5 @@ void AD9834_init();
 void AD9834_reset();
 void AD9834_reset_high();
 void AD9834_reset_low();
+
+#endif
