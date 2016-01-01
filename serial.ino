@@ -11,9 +11,9 @@ void serialInit() {
 }
 
 void serialDump() {
-  static int lastPowerIn = 0;
-  static int lastPowerOut = 0;
-  static int lastSMeter = 0;
+  static int lastPowerIn = -1; //Set to -1 to ensure that it gets sent on the first run of serialDump()
+  static int lastPowerOut = -1;
+  static int lastSMeter = -1;
   int powerIn = getPowerIn();
   int powerOut = getPowerOut();
   int sMeter = getSignalStrength();

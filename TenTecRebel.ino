@@ -120,9 +120,9 @@ void loadDefaultSettings() {
   digitalWrite (PIN_SIDETONE, LOW);
   digitalWrite (FREQ_REGISTER_BIT, LOW);
 
-  setBandwidth(BANDWIDTH_WIDE);
   setBand(getCurrentBand() );
   setStepSize(STEP_100HZ);
+  setBandwidth(BANDWIDTH_WIDE);
   setMultifunction(MULTIFUNCTION_1);
   setFunction(FUNCTION_1);
   setDecoder(true);

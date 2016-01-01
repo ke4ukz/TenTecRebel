@@ -53,5 +53,8 @@ v1.0.14 - 2015-12-31
 	CHG Changed serialDump to only send when a value has changed
 	CHG Set boundaries for keyer speed (1 to 100WPM, if set to 0 resets to 20)
 	CHG Moved lastSerialDump out of global variables into loop() as static
-v1.0.15
+v1.0.15 - 2015-12-31
 	ADD Added serial update on band select
+v1.0.16 - 2016-01-01
+	Set initial values in serialDump() to ensure that something is sent the first time it is called
+	Rearranged some stuff in setDefaults() to make sure the green select and multifunction LEDs were lit at startup
