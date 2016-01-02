@@ -36,7 +36,15 @@ char morseTable[] = "*5*H*4*S***V*3*I***F***U?*_**2*E***L\"**R*+.****A***P@**W**
 char morseSignal[] = "......";
 int morseSignalPos = 0;
 int morseSignals = 0;
-bool keyerOn = true;
+int keyerMode = true;
 bool decoderOn = true;
 int decodeThreshhold = 700;
+bool wraparoundTuning = false;
 
+uint8_t bandscanData[BANDSCAN_SIZE] = {0};
+long bandscanTop;
+long bandscanBottom;
+int bandscanMode;
+long bandscanWidth;
+unsigned long bandscanInterval;
+bool isBandscanning = false;

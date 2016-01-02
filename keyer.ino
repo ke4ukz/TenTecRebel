@@ -94,9 +94,9 @@ void sendNextSignal() {
   morseSignalPos++;
 }
 
-void setKeyer(bool turnon) {
-  keyerOn = turnon;
-  serialSend(SERIAL_KEYER, (keyerOn == true ? 1 : 0) );
+void setKeyerMode(int mode) {
+  keyerMode = mode;
+  serialSend(SERIAL_KEYER, mode);
 }
 
 void setDecoder(bool turnon) {
@@ -119,7 +119,7 @@ void decodeRoutine() {
   static boolean morseSpace = false;    // Flag to prevent multiple received spaces
   static boolean gotLastSig = true;     // Flag that the last received morse signal is decoded as dot or dash
 
-  int audioMorse = analogRead(PIN_CWREAD);
+  int audioMorse = getCWRead();
   unsigned long currentTime = millis();
   // Check for an audio signal...
   if (audioMorse > decodeThreshhold) {
@@ -182,4 +182,8 @@ void decodeRoutine() {
     gotLastSig = false;
     morseSpace = false;
   }
+}
+
+int getCWRead() {
+  return analogRead(PIN_CWREAD);
 }

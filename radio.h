@@ -16,5 +16,6 @@ int getPowerOut();
 int getSignalStrength();
 void setBandwidth(int);
 void setStepSize(int);
+void setWraparoundTuning(bool);
 
 #endif

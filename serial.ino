@@ -11,25 +11,31 @@ void serialInit() {
 }
 
 void serialDump() {
-  static int lastPowerIn = -1; //Set to -1 to ensure that it gets sent on the first run of serialDump()
-  static int lastPowerOut = -1;
-  static int lastSMeter = -1;
+//  static int lastPowerIn = -1; //Set to -1 to ensure that it gets sent on the first run of serialDump()
+//  static int lastPowerOut = -1;
+//  static int lastSMeter = -1;
+//  static int lastCWRead = -1;
   int powerIn = getPowerIn();
   int powerOut = getPowerOut();
   int sMeter = getSignalStrength();
+  int cwRead = getCWRead();
   
-  if (powerIn != lastPowerIn) {
-    serialSend(SERIAL_VOLTMETER, getPowerIn() );
-    lastPowerIn = powerIn;
-  }
-  if (powerOut != lastPowerOut) {
-    serialSend(SERIAL_OUTPUTPOWER, getPowerOut() );
-    lastPowerOut = powerOut;
-  }
-  if (sMeter != lastSMeter) {
-    serialSend(SERIAL_SMETER, getSignalStrength() );
-    lastSMeter = sMeter;
-  }
+//  if (powerIn != lastPowerIn) {
+    serialSend(SERIAL_VOLTMETER, powerIn);
+//    lastPowerIn = powerIn;
+//  }
+//  if (powerOut != lastPowerOut) {
+    serialSend(SERIAL_OUTPUTPOWER, powerOut);
+//    lastPowerOut = powerOut;
+//  }
+//  if (sMeter != lastSMeter) {
+    serialSend(SERIAL_SMETER, sMeter);
+//    lastSMeter = sMeter;
+//  }
+//  if (cwRead != lastCWRead) {
+    serialSend(SERIAL_CWREAD, cwRead);
+//    lastCWRead = cwRead;
+//  }
 } //end serialDump()
 
 void processSerialCommand() {
@@ -68,13 +74,34 @@ void processSerialCommand() {
       setFunction(Step_Select_Button);
       break;
     case SERIAL_SET_KEYER:
-      setKeyer(incomingData == 0 ? false : true);
+      setKeyerMode(incomingData);
       break;
     case SERIAL_SET_DECODER:
       setDecoder(incomingData == 0 ? false : true);
       break;
     case SERIAL_SET_DECODETHRESHHOLD:
       setDecodeThreshhold(incomingData);
+      break;
+    case SERIAL_SET_BANDSCAN:
+      setBandscanMode(incomingData);
+      break;
+    case SERIAL_SET_BANDSCAN_WIDTH:
+      setBandscanWidth(incomingData);
+      break;
+    case SERIAL_SET_BANDSCAN_TOP:
+      setBandscanTop(incomingData-IF);
+      break;
+    case SERIAL_SET_BANDSCAN_BOTTOM:
+      setBandscanBottom(incomingData-IF);
+      break;
+    case SERIAL_SET_BANDSCAN_INTERVAL:
+      setBandscanInterval(incomingData);
+      break;
+    case SERIAL_SET_WRAPAROUND:
+      setWraparoundTuning( (incomingData==0 ? false : true) );
+      break;
+    case SERIAL_UPDATE:
+      sendUpdate();
       break;
   }
 }
@@ -90,7 +117,8 @@ void serialReceive(byte incoming) {
       incomingDataType = incoming;
       incomingData = 0;
       if ( (incomingDataType == SERIAL_TUNE_UP) ||
-           (incomingDataType == SERIAL_TUNE_DOWN) ) {
+           (incomingDataType == SERIAL_TUNE_DOWN) || 
+           (incomingDataType == SERIAL_UPDATE) ) {
         currentSerialStep = SERIALSTEP_EXPECT_FOOTER;
       } else {
         currentSerialStep = SERIALSTEP_EXPECT_4MORE;
@@ -142,4 +170,13 @@ void serialSend(byte toSend, uint32_t value) {
   Serial.write((byte)((value & 0x0000ff00) >> 8));
   Serial.write((byte)( value & 0x000000ff));
   Serial.write((byte)SERIAL_FOOTER);  
+}
+
+void serialSendBandscan() {
+  Serial.write((byte)SERIAL_HEADER);
+  Serial.write((byte)SERIAL_BANDSCAN_DATA);
+  for (int i=0; i<BANDSCAN_SIZE; i++) {
+    Serial.write((byte)bandscanData[i]);
+  }
+  Serial.write((byte)SERIAL_FOOTER);
 }

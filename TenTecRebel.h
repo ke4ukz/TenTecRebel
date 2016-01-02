@@ -6,5 +6,6 @@
 //void setup(); - Already defined by MPIDE
 //void loop(); - Already defined by MPIDE
 void loadDefaultSettings();
+void sendUpdate();
 
 #endif

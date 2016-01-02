@@ -10,5 +10,6 @@ void serialReceive(byte);
 void serialSend(String);
 void serialSend(byte);
 void serialSend(byte, uint32_t);
+void serialSendBandscan();
 
 #endif

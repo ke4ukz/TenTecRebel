@@ -1,6 +1,6 @@
 /*
  * Ten Tec Rebel 506 Radio Firmware
- * Copyright 2015 Jonathan Dean (ke4ukz@gmx.com)
+ * Copyright 2015, 2016 Jonathan Dean (ke4ukz@gmx.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,11 +19,11 @@
 #include "TenTecRebel.h"
 
 void setup() {
-  pinMode(SCLK_BIT, OUTPUT);    // clock
-  pinMode(FSYNC_BIT, OUTPUT);    // fsync
-  pinMode(SDATA_BIT, OUTPUT);    // data
-  pinMode(RESET_BIT, OUTPUT);    // reset
-  pinMode(FREQ_REGISTER_BIT, OUTPUT);    // freq register select
+  pinMode(PIN_AD9834_SCLK, OUTPUT);    // clock
+  pinMode(PIN_AD9834_FSYNC, OUTPUT);    // fsync
+  pinMode(PIN_AD9834_SDATA, OUTPUT);    // data
+  pinMode(PIN_AD9834_RESET, OUTPUT);    // reset
+  pinMode(PIN_AD9834_FREQ_REGISTER, OUTPUT);    // freq register select
   pinMode(PIN_TRANSMIT, OUTPUT);
   pinMode(PIN_TT_LED, OUTPUT);
   pinMode(PIN_MULTIFUNCTION_GREEN, OUTPUT);    // Band width
@@ -62,9 +62,10 @@ void setup() {
 
 void loop() {
   static unsigned long lastSerialDump = 0;
+  static unsigned long lastBandscan = 0;
   
-  digitalWrite(FSYNC_BIT, HIGH);  // 
-  digitalWrite(SCLK_BIT, HIGH);  //
+  //digitalWrite(PIN_AD9834_FSYNC, HIGH);  // 
+  //digitalWrite(PIN_AD9834_SCLK, HIGH);  //
 
   //Check for user input
   pollRIT();
@@ -72,34 +73,51 @@ void loop() {
   pollSelectButton();
   pollRotaryEncoder();
 
-  if (keyerOn) {
-    //If not transmitting and not pausing between dits or dahs, see if either the user has tapped the key or send a character
-    if (!isTransmitting) {
-      if (millis() >= transmitInhibitUntil) {
-        if (!morseSending) {
-          if (getDitKey()) {
-            sendDit();
-          } else if (getDahKey()) {
-            sendDah();
+  //Keyer/key stuff
+  switch (keyerMode) {
+    case KEYER_DISABLED:
+      if (isTransmitting) setTransmit(false);
+      break;
+    case KEYER_IAMBIC:
+      //If not transmitting and not pausing between dits or dahs, see if either the user has tapped the key or send a character
+      if (!isTransmitting) {
+        if (millis() >= transmitInhibitUntil) {
+          if (!morseSending) {
+            if (getDitKey()) {
+              sendDit();
+            } else if (getDahKey()) {
+              sendDah();
+            }
+          } else {
+            sendNextSignal();
           }
-        } else {
-          sendNextSignal();
         }
       }
-    }
-    //If we're transmitting, see if we should stop yet
-    if ((millis() >= transmitUntil) && isTransmitting) {
-      setTransmit(false);
-      transmitInhibitUntil = (millis() + ditDuration);
-    }
-  } else {
-    //No keyer, treat it as a straight key
-    setTransmit( getDitKey() );
+      //If we're transmitting, see if we should stop yet
+      if ((millis() >= transmitUntil) && isTransmitting) {
+        setTransmit(false);
+        transmitInhibitUntil = (millis() + ditDuration);
+      }
+      break;
+    case KEYER_STRAIGHT:
+      //No keyer, treat it as a straight key
+      setTransmit( getDitKey() );
+      break;
+    case KEYER_TUNE:
+      if (!isTransmitting) setTransmit(true);
+      break;
   }
 
-  //Run the decoder if it's turned on
+  //Run the Morse decoder if it's turned on
   if (decoderOn) {
     decodeRoutine();
+  }
+
+  //Run a bandscan if necessary
+  if ( !isTransmitting && (millis() - lastBandscan > bandscanInterval)  && (bandscanMode != BANDSCAN_OFF) ) {
+    performBandscan();
+    serialSendBandscan();
+    lastBandscan = millis();
   }
 
   //Report data
@@ -118,15 +136,30 @@ void loadDefaultSettings() {
   digitalWrite (PIN_TRANSMIT, LOW);
   digitalWrite (PIN_TT_LED, LOW);
   digitalWrite (PIN_SIDETONE, LOW);
-  digitalWrite (FREQ_REGISTER_BIT, LOW);
+  digitalWrite (PIN_AD9834_FREQ_REGISTER, LOW);
 
   setBand(getCurrentBand() );
   setStepSize(STEP_100HZ);
   setBandwidth(BANDWIDTH_WIDE);
   setMultifunction(MULTIFUNCTION_1);
   setFunction(FUNCTION_1);
+  setBandscanMode(BANDSCAN_OFF);
+  setBandscanWidth(5000);
+  setBandscanInterval(1000);
   setDecoder(true);
   setDecodeThreshhold(700);
-  setKeyer(true);
+  setKeyerMode(KEYER_IAMBIC);
   setKeyerWPM(20);
+  setWraparoundTuning(false);
 } //end loadDefaultSettings()
+
+void sendUpdate() {
+  serialSend(SERIAL_VOLTMETER, getPowerIn() );
+  serialSend(SERIAL_OUTPUTPOWER, getPowerOut() );
+  serialSend(SERIAL_SMETER, getSignalStrength() );
+  serialSend(SERIAL_BAND, getCurrentBand() );
+  serialSend(SERIAL_STEPSIZE, frequency_step);
+  serialSend(SERIAL_TXFREQUENCY, currentFrequency+IF);
+  serialSend(SERIAL_RXFREQUENCY, currentFrequency + RitFrequencyOffset + IF);
+  //More to come
+}

@@ -10,8 +10,10 @@ bool getDahKey();
 void setKeyerWPM(int);
 void sendCharacter(char);
 void sendNextSignal();
-void setKeyer(bool);
+void setKeyerMode(int);
 void setDecoder(bool);
 void setDecodeThreshhold(int);
 void decodeRoutine();
+int getCWRead();
+
 #endif

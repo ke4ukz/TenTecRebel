@@ -20,11 +20,11 @@ void setBand(int band) {
 }
 
 void tuneUp() {
-  setFrequency(bandLimit(currentFrequency + frequency_step));
+  setFrequency(bandLimit(currentFrequency + frequency_step, wraparoundTuning));
 }
 
 void tuneDown() {
-  setFrequency(bandLimit(currentFrequency - frequency_step));
+  setFrequency(bandLimit(currentFrequency - frequency_step, wraparoundTuning));
 }
 
 void setFrequency(long txFreq) {
@@ -34,8 +34,10 @@ void setFrequency(long txFreq) {
     dssSetRXFreq( rxFreq  );
     dssSetTXFreq( txFreq + IF  );
     currentFrequency = txFreq;
-    serialSend(SERIAL_TXFREQUENCY, txFreq + IF);
-    serialSend(SERIAL_RXFREQUENCY, rxFreq + IF);
+    if (!isBandscanning) {
+      serialSend(SERIAL_TXFREQUENCY, txFreq + IF);
+      serialSend(SERIAL_RXFREQUENCY, rxFreq + IF);
+    }
   }
 }
 
@@ -43,13 +45,13 @@ void setTransmit(bool tx) {
   if (!isTransmitting && tx) {
     serialSend(SERIAL_TXSTART);
     digitalWrite(PIN_TT_LED, HIGH);
-    digitalWrite(FREQ_REGISTER_BIT, HIGH);
+    digitalWrite(PIN_AD9834_FREQ_REGISTER, HIGH);
     digitalWrite(PIN_TRANSMIT, HIGH);
     digitalWrite(PIN_SIDETONE, HIGH);
     isTransmitting = true;
   } else if (isTransmitting && !tx) {
     digitalWrite(PIN_TRANSMIT, LOW);
-    digitalWrite(FREQ_REGISTER_BIT, LOW);
+    digitalWrite(PIN_AD9834_FREQ_REGISTER, LOW);
     digitalWrite(PIN_SIDETONE, LOW);
     digitalWrite(PIN_TT_LED, LOW);
     isTransmitting = false;
@@ -58,19 +60,39 @@ void setTransmit(bool tx) {
 }
 
 long bandLimit(long freq) {
+  return bandLimit(freq, false);
+}
+
+long bandLimit(long freq, bool wraparound) {
   if (getCurrentBand() == BAND_20METERS) {
     if (freq > BANDLIMIT_20_TOP) {
-      return BANDLIMIT_20_TOP;
+      if (wraparound) {
+        return BANDLIMIT_20_BOTTOM;
+      } else {
+        return BANDLIMIT_20_TOP;
+      }
     } else if (freq < BANDLIMIT_20_BOTTOM) {
-      return BANDLIMIT_20_BOTTOM;
+      if (wraparound) {
+        return BANDLIMIT_20_TOP;
+      } else {
+        return BANDLIMIT_20_BOTTOM;
+      }
     } else {
       return freq;
     }
   } else {
     if (freq > BANDLIMIT_40_TOP) {
-      return BANDLIMIT_40_TOP;
+      if (wraparound) {
+        return BANDLIMIT_40_BOTTOM;
+      } else {
+        return BANDLIMIT_40_TOP;
+      }
     } else if (freq < BANDLIMIT_40_BOTTOM) {
-      return BANDLIMIT_40_BOTTOM;
+      if (wraparound) {
+        return BANDLIMIT_40_TOP;
+      } else {
+        return BANDLIMIT_40_BOTTOM;
+      }        
     } else {
       return freq;
     }
@@ -124,9 +146,14 @@ void setStepSize(int stepSize) {
     case STEP_10000HZ:
       frequency_step = 10e3;
       break;
+
     default:
       return;
   }
   Selected_Step = stepSize;
 }
 
+void setWraparoundTuning(bool wraparound) {
+  wraparoundTuning = wraparound;
+  serialSend(SERIAL_WRAPAROUND, (wraparound ? 1 : 0) );
+}

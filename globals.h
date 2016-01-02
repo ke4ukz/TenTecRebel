@@ -36,7 +36,17 @@ extern char morseTable[];
 extern char morseSignal[];
 extern int morseSignalPos;
 extern int morseSignals;
-extern bool keyerOn;
+extern int keyerMode;
 extern bool decoderOn;
 extern int decodeThreshhold;
+extern bool wraparoundTuning;
+
+extern uint8_t bandscanData[];
+extern long bandscanTop;
+extern long bandscanBottom;
+extern int bandscanMode;
+extern long bandscanWidth;
+extern unsigned long bandscanInterval;
+extern bool isBandscanning;
+
 #endif

@@ -56,5 +56,12 @@ v1.0.14 - 2015-12-31
 v1.0.15 - 2015-12-31
 	ADD Added serial update on band select
 v1.0.16 - 2016-01-01
-	Set initial values in serialDump() to ensure that something is sent the first time it is called
-	Rearranged some stuff in setDefaults() to make sure the green select and multifunction LEDs were lit at startup
+	CHG Set initial values in serialDump() to ensure that something is sent the first time it is called
+	CHG Rearranged some stuff in setDefaults() to make sure the green select and multifunction LEDs were lit at startup
+v1.0.17 - 2015-01-02
+	ADD Added band scope
+	ADD Added tuning wraparound at band end
+	CHG Renamed some more defines to make more sense
+	ADD Added "tune" mode to keyer; changed keyer from iambic on/off to multi-mode
+	ADD Added "update" command; still needs to be finished
+	DEL Commented out parts of serialDump so it always sends all data
