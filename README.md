@@ -30,11 +30,15 @@ Setting | Value
 Frequency | 7.03MHZ for 40 meters or 14.06MHz for 20 meters
 Filter Bandwidth | 2.5KHz
 Tuning Step Size | 100Hz
-Iambic Keyer | Enabled
+Keyer Mode | Iambic
 Morse Decoder | Enabled
 Keyer/Decoder Speed | 20WPM
 Decode Threshhold | 700
 User Mode | 1 (not used)
+Band Scan Mode | Disabled
+Band Scan Interval | 1000
+Band Scan Width | 5000
+Tuning Wraparound | Stop at end
 
 # Serial Protocol
 Two-way communication between the radio and a computer is achieved over the USB virtual serial port using a custom protocol.
@@ -61,11 +65,19 @@ Character Sent | 0x0a | None | Character sent by Morse encoder has finished send
 Filter Bandwidth | 0x0b | Integer | Current filter bandwidth selection (0=2.5KHz, 1=1.5KHz, 2=800Hz)
 Tuning Step Size | 0x0c | Integer | Current tuning step size selection (0=100Hz, 1=1KHz, 2=10KHz)
 User Mode | 0x0d | Integer | Current user mode selected (0, 1, or 2); not used
-Keyer Enabled | 0x0e | Boolean | Keyer enabled or disabled (0=straight key, 1=iambic keyer)
+Keyer Mode | 0x0e | Integer | Keyer mode (0=disabled, 1=straight, 2=iambic, 3=tune)
 Initialization Finished | 0x0f | None | Radio initialization has finished and commands may now be sent
 Decoder Enable | 0x10 | Boolean | Morse code decoder enabled or disabled (0=off, 1=on)
 Decode Threshhold | 0x11 | Integer | Audio level required for a signal to be considered for decoding (0 to 1023)
 Band Changed| 0x12 | Integer | Selected band (0=20 meters, 1=40 meters)
+Band Scan Mode | 0x13 | Integer | Selected band scan mode (0=off, 1=full band, 2=centered on current frequency, 3=custom)
+Band Scan Width | 0x14 | Integer | Scan width for centered scan in Hz
+Band Scan Top | 0x15 | Integer | High end for custom band scan in Hz
+Band Scan Bottom | 0x16 | Integer | Low end for custom band scan in Hz
+Band Scan Interval | 0x17 | Integer | Interval for scan in ms
+Band Scan Data | 0x18 | Byte Array | Scan data, divided into 256 bytes
+Tuning Wraparound | 0x19 | Integer | 0=stop tuning at band end, 1=wrap to the other end when trying to tune past band end
+CW Read Level | 0x1a | Integer | CW read level (0 to 1023)
 
 ## Input Messages
 These messages are sent from the computer to control the radio:
@@ -80,6 +92,13 @@ Send Character | 0x84 | ASCII Character | Send a character using the Morse encod
 Set Filter Bandwidth | 0x85 | Integer | Set filter width (0=2.5KHz, 1=1.5KHz, 2=800Hz)
 Set Tuning Step Size | 0x86 | Integer | Set tuning step size (0=100Hz, 1=1KHz, 2=10KHz)
 Set User Mode | 0x87 | Integer | Set user mode (0, 1, or 2); not used
-Set Keyer Mode | 0x88 | Boolean | Enable or diable the iambic keyer (0=straight key, 1=iambic keyer)
+Set Keyer Mode | 0x88 | Integer | Set keyer mode: 0=disabled (can't transmit), 1=straight, 2=iambic, 3=tune (continually transmit)
 Set Morse Decoder | 0x89 | Boolean | Enable or disable the Morse decoder (0=disabled, 1=enabled)
 Set Morse Decoding Threshhold | 0x8a | Integer | Set audio level required for a signal to be considered for decoding (0 to 1023)
+Set Band Scan Mode | 0x8b | Integer | Set band scan mode (0=off, 1=full band, 2=centered on current frequency, 3=custom)
+Set Band Scan Width | 0x8c | Integer | Set band scan width (for centered mode) in Hz
+Set Band Scan Top | 0x8d | Integer | Set band scan highest frequency in Hz
+Set Band Scan Bottom | 0x8e | Integer | Set band scan lowest frequency in Hz
+Set Band Scan Interval | 0x8f | Integer | Set interval between band scan sweeps in ms
+Set Wraparound Mode | 0x90 | Integer | Set wraparound mode: 0=stop tuning at band end, 1=wrap to the other end when trying to tune past band end
+Get All Data | 0x91 | None | Request a dump of all radio data
