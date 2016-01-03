@@ -13,7 +13,7 @@ int Selected_Other = 0; // USER_*
 unsigned long serialReportInterval = 50; //Milliseconds between serial dumps
 unsigned long ditDuration = 100; //Number of milliseconds in a dit
 
-int encoder0PinALast = LOW;
+//int encoder0PinALast = LOW;
 
 bool isTransmitting = false;
 unsigned long transmitUntil = 0;

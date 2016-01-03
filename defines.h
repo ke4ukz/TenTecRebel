@@ -2,7 +2,7 @@
 #define DEFINES_H
 
 #define __NAME__                            "TenTec Rebel 506 (KE4UKZ)"
-#define __VERSION__                         "1.0.17"
+#define __VERSION__                         "1.0.18"
 
 //PWM on pins 3, 5, 6, 9, & 10
 

@@ -1,6 +1,41 @@
 #include "ui.h"
 
 void pollRotaryEncoder() {
+  static int encoder0PinALast = LOW;
+  static int encoder0PinBLast = LOW;
+  
+  int n = digitalRead(PIN_ENCODER0A);
+  int m = digitalRead(PIN_ENCODER0B);
+  
+  if ((encoder0PinALast == LOW) && (n == HIGH)) {
+    if (m == LOW) {
+      tuneDown();    //encoder0Pos--;
+    } else {
+      tuneUp();       //encoder0Pos++;
+    }
+  } else if ((encoder0PinALast == HIGH) && (n == LOW)) {
+    // now we get 36 steps/rev instead of 10
+    if (m == HIGH) {
+      tuneDown();
+    } else {
+      tuneUp();
+    }
+  } else if ((encoder0PinBLast == LOW) && (m == HIGH)) {
+    if (n == LOW) {
+      tuneUp();
+    } else {
+      tuneDown();
+    }
+  } else if ((encoder0PinBLast == HIGH) && (m == LOW)) {
+    if (n == HIGH) {
+      tuneUp();
+    } else {
+      tuneDown();
+    }
+  }
+  encoder0PinALast = n;
+  encoder0PinBLast = m;
+/*
   int n = digitalRead(PIN_ENCODER0A);
   if ( (encoder0PinALast == LOW) && (n == HIGH) ) {
     if (digitalRead(PIN_ENCODER0B) == LOW) {
@@ -10,6 +45,7 @@ void pollRotaryEncoder() {
     }
   } 
   encoder0PinALast = n;
+*/
 }
 
 void pollRIT() {

@@ -13,7 +13,7 @@ extern int Selected_Other;
 extern unsigned long serialReportInterval;
 extern unsigned long ditDuration;
 
-extern int encoder0PinALast;
+//extern int encoder0PinALast;
 
 extern bool isTransmitting;
 extern unsigned long transmitUntil;

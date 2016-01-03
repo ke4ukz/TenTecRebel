@@ -1,3 +1,5 @@
+v1.0.18
+	CHG Changed rotary encoder code for higher resolution based on code by KD0UTH
 v1.0.17 - 2015-01-02
 	ADD Added band scope
 	ADD Added tuning wraparound at band end
