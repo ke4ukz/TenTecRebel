@@ -525,10 +525,17 @@
 
     Private Sub chkPortOpen_CheckedChanged(sender As Object, e As EventArgs) Handles chkPortOpen.CheckedChanged
         If chkPortOpen.Checked And Not SerialPort1.IsOpen Then
-            SerialPort1.Open()
+            If cboComPort.Text <> "" Then
+                SerialPort1.PortName = cboComPort.Text
+                SerialPort1.Open()
+                cboComPort.Enabled = False
+            Else
+                chkPortOpen.Checked = False
+            End If
         ElseIf Not chkPortOpen.Checked And SerialPort1.IsOpen Then
             SerialPort1.DiscardInBuffer()
             SerialPort1.Close()
+            cboComPort.Enabled = True
         End If
     End Sub
 
@@ -636,6 +643,13 @@
 
     Private Sub cboBandEnd_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboBandEnd.SelectedIndexChanged
         SendCommand(SerialCommands.SetWraparound, cboBandEnd.SelectedIndex)
+    End Sub
+
+    Private Sub cboComPort_DropDown(sender As Object, e As EventArgs) Handles cboComPort.DropDown
+        cboComPort.Items.Clear()
+        For Each s As String In System.IO.Ports.SerialPort.GetPortNames()
+            cboComPort.Items.Add(s)
+        Next
     End Sub
 
 End Class

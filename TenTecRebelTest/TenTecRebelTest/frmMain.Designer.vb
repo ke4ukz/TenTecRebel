@@ -50,6 +50,8 @@ Partial Class frmMain
         Me.lblVoltage = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
+        Me.Label17 = New System.Windows.Forms.Label()
+        Me.cboComPort = New System.Windows.Forms.ComboBox()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.lblKeyerWPM = New System.Windows.Forms.LinkLabel()
         Me.TextBox2 = New System.Windows.Forms.TextBox()
@@ -106,7 +108,7 @@ Partial Class frmMain
         'lblFrequency
         '
         Me.lblFrequency.AutoSize = True
-        Me.lblFrequency.Location = New System.Drawing.Point(145, 24)
+        Me.lblFrequency.Location = New System.Drawing.Point(145, 48)
         Me.lblFrequency.Name = "lblFrequency"
         Me.lblFrequency.Size = New System.Drawing.Size(39, 13)
         Me.lblFrequency.TabIndex = 3
@@ -115,7 +117,7 @@ Partial Class frmMain
         'lblRxFrequency
         '
         Me.lblRxFrequency.AutoSize = True
-        Me.lblRxFrequency.Location = New System.Drawing.Point(145, 48)
+        Me.lblRxFrequency.Location = New System.Drawing.Point(145, 72)
         Me.lblRxFrequency.Name = "lblRxFrequency"
         Me.lblRxFrequency.Size = New System.Drawing.Size(39, 13)
         Me.lblRxFrequency.TabIndex = 4
@@ -126,32 +128,34 @@ Partial Class frmMain
         Me.TableLayoutPanel1.ColumnCount = 2
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.0!))
-        Me.TableLayoutPanel1.Controls.Add(Me.cmdReset, 1, 0)
-        Me.TableLayoutPanel1.Controls.Add(Me.chkPortOpen, 0, 0)
-        Me.TableLayoutPanel1.Controls.Add(Me.cmdTuneDown, 0, 6)
-        Me.TableLayoutPanel1.Controls.Add(Me.cmdTuneUp, 1, 6)
-        Me.TableLayoutPanel1.Controls.Add(Me.cmdSetFrequency, 1, 7)
-        Me.TableLayoutPanel1.Controls.Add(Me.cboBandwidth, 1, 8)
-        Me.TableLayoutPanel1.Controls.Add(Me.Label7, 0, 8)
-        Me.TableLayoutPanel1.Controls.Add(Me.Label8, 0, 9)
-        Me.TableLayoutPanel1.Controls.Add(Me.cboTuneStep, 1, 9)
-        Me.TableLayoutPanel1.Controls.Add(Me.Label9, 0, 11)
-        Me.TableLayoutPanel1.Controls.Add(Me.cboKeyer, 1, 11)
-        Me.TableLayoutPanel1.Controls.Add(Me.Label15, 0, 10)
-        Me.TableLayoutPanel1.Controls.Add(Me.cboBandEnd, 1, 10)
-        Me.TableLayoutPanel1.Controls.Add(Me.Label5, 0, 5)
-        Me.TableLayoutPanel1.Controls.Add(Me.lblSMeter, 1, 5)
-        Me.TableLayoutPanel1.Controls.Add(Me.lblOutputPower, 1, 4)
-        Me.TableLayoutPanel1.Controls.Add(Me.Label4, 0, 4)
-        Me.TableLayoutPanel1.Controls.Add(Me.Label3, 0, 3)
-        Me.TableLayoutPanel1.Controls.Add(Me.lblVoltage, 1, 3)
-        Me.TableLayoutPanel1.Controls.Add(Me.lblRxFrequency, 1, 2)
-        Me.TableLayoutPanel1.Controls.Add(Me.lblFrequency, 1, 1)
-        Me.TableLayoutPanel1.Controls.Add(Me.Label2, 0, 2)
-        Me.TableLayoutPanel1.Controls.Add(Me.Label1, 0, 1)
+        Me.TableLayoutPanel1.Controls.Add(Me.cmdReset, 1, 1)
+        Me.TableLayoutPanel1.Controls.Add(Me.chkPortOpen, 0, 1)
+        Me.TableLayoutPanel1.Controls.Add(Me.cmdTuneDown, 0, 7)
+        Me.TableLayoutPanel1.Controls.Add(Me.cmdTuneUp, 1, 7)
+        Me.TableLayoutPanel1.Controls.Add(Me.cmdSetFrequency, 1, 8)
+        Me.TableLayoutPanel1.Controls.Add(Me.cboBandwidth, 1, 9)
+        Me.TableLayoutPanel1.Controls.Add(Me.Label7, 0, 9)
+        Me.TableLayoutPanel1.Controls.Add(Me.Label8, 0, 10)
+        Me.TableLayoutPanel1.Controls.Add(Me.cboTuneStep, 1, 10)
+        Me.TableLayoutPanel1.Controls.Add(Me.Label9, 0, 12)
+        Me.TableLayoutPanel1.Controls.Add(Me.cboKeyer, 1, 12)
+        Me.TableLayoutPanel1.Controls.Add(Me.Label15, 0, 11)
+        Me.TableLayoutPanel1.Controls.Add(Me.cboBandEnd, 1, 11)
+        Me.TableLayoutPanel1.Controls.Add(Me.Label5, 0, 6)
+        Me.TableLayoutPanel1.Controls.Add(Me.lblSMeter, 1, 6)
+        Me.TableLayoutPanel1.Controls.Add(Me.lblOutputPower, 1, 5)
+        Me.TableLayoutPanel1.Controls.Add(Me.Label4, 0, 5)
+        Me.TableLayoutPanel1.Controls.Add(Me.Label3, 0, 4)
+        Me.TableLayoutPanel1.Controls.Add(Me.lblVoltage, 1, 4)
+        Me.TableLayoutPanel1.Controls.Add(Me.lblRxFrequency, 1, 3)
+        Me.TableLayoutPanel1.Controls.Add(Me.lblFrequency, 1, 2)
+        Me.TableLayoutPanel1.Controls.Add(Me.Label2, 0, 3)
+        Me.TableLayoutPanel1.Controls.Add(Me.Label1, 0, 2)
+        Me.TableLayoutPanel1.Controls.Add(Me.Label17, 0, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.cboComPort, 1, 0)
         Me.TableLayoutPanel1.Location = New System.Drawing.Point(12, 156)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
-        Me.TableLayoutPanel1.RowCount = 12
+        Me.TableLayoutPanel1.RowCount = 14
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24.0!))
@@ -164,13 +168,15 @@ Partial Class frmMain
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24.0!))
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(285, 304)
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24.0!))
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24.0!))
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(285, 348)
         Me.TableLayoutPanel1.TabIndex = 7
         '
         'cmdReset
         '
         Me.cmdReset.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.cmdReset.Location = New System.Drawing.Point(145, 3)
+        Me.cmdReset.Location = New System.Drawing.Point(145, 27)
         Me.cmdReset.Name = "cmdReset"
         Me.cmdReset.Size = New System.Drawing.Size(137, 18)
         Me.cmdReset.TabIndex = 1
@@ -180,7 +186,7 @@ Partial Class frmMain
         'chkPortOpen
         '
         Me.chkPortOpen.AutoSize = True
-        Me.chkPortOpen.Location = New System.Drawing.Point(3, 3)
+        Me.chkPortOpen.Location = New System.Drawing.Point(3, 27)
         Me.chkPortOpen.Name = "chkPortOpen"
         Me.chkPortOpen.Size = New System.Drawing.Size(74, 17)
         Me.chkPortOpen.TabIndex = 0
@@ -190,7 +196,7 @@ Partial Class frmMain
         'cmdTuneDown
         '
         Me.cmdTuneDown.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.cmdTuneDown.Location = New System.Drawing.Point(3, 147)
+        Me.cmdTuneDown.Location = New System.Drawing.Point(3, 171)
         Me.cmdTuneDown.Name = "cmdTuneDown"
         Me.cmdTuneDown.Size = New System.Drawing.Size(136, 18)
         Me.cmdTuneDown.TabIndex = 15
@@ -200,7 +206,7 @@ Partial Class frmMain
         'cmdTuneUp
         '
         Me.cmdTuneUp.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.cmdTuneUp.Location = New System.Drawing.Point(145, 147)
+        Me.cmdTuneUp.Location = New System.Drawing.Point(145, 171)
         Me.cmdTuneUp.Name = "cmdTuneUp"
         Me.cmdTuneUp.Size = New System.Drawing.Size(137, 18)
         Me.cmdTuneUp.TabIndex = 16
@@ -210,7 +216,7 @@ Partial Class frmMain
         'cmdSetFrequency
         '
         Me.cmdSetFrequency.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.cmdSetFrequency.Location = New System.Drawing.Point(145, 171)
+        Me.cmdSetFrequency.Location = New System.Drawing.Point(145, 195)
         Me.cmdSetFrequency.Name = "cmdSetFrequency"
         Me.cmdSetFrequency.Size = New System.Drawing.Size(137, 18)
         Me.cmdSetFrequency.TabIndex = 19
@@ -223,7 +229,7 @@ Partial Class frmMain
         Me.cboBandwidth.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboBandwidth.FormattingEnabled = True
         Me.cboBandwidth.Items.AddRange(New Object() {"Wide", "Medium", "Narrow"})
-        Me.cboBandwidth.Location = New System.Drawing.Point(145, 195)
+        Me.cboBandwidth.Location = New System.Drawing.Point(145, 219)
         Me.cboBandwidth.Name = "cboBandwidth"
         Me.cboBandwidth.Size = New System.Drawing.Size(137, 21)
         Me.cboBandwidth.TabIndex = 20
@@ -231,7 +237,7 @@ Partial Class frmMain
         'Label7
         '
         Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(3, 192)
+        Me.Label7.Location = New System.Drawing.Point(3, 216)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(57, 13)
         Me.Label7.TabIndex = 21
@@ -240,7 +246,7 @@ Partial Class frmMain
         'Label8
         '
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(3, 216)
+        Me.Label8.Location = New System.Drawing.Point(3, 240)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(57, 13)
         Me.Label8.TabIndex = 22
@@ -252,7 +258,7 @@ Partial Class frmMain
         Me.cboTuneStep.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboTuneStep.FormattingEnabled = True
         Me.cboTuneStep.Items.AddRange(New Object() {"100 Hz", "1 KHz", "10 KHz"})
-        Me.cboTuneStep.Location = New System.Drawing.Point(145, 219)
+        Me.cboTuneStep.Location = New System.Drawing.Point(145, 243)
         Me.cboTuneStep.Name = "cboTuneStep"
         Me.cboTuneStep.Size = New System.Drawing.Size(137, 21)
         Me.cboTuneStep.TabIndex = 23
@@ -260,7 +266,7 @@ Partial Class frmMain
         'Label9
         '
         Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(3, 264)
+        Me.Label9.Location = New System.Drawing.Point(3, 288)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(34, 13)
         Me.Label9.TabIndex = 24
@@ -272,7 +278,7 @@ Partial Class frmMain
         Me.cboKeyer.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboKeyer.FormattingEnabled = True
         Me.cboKeyer.Items.AddRange(New Object() {"Disabled", "Straight Key", "Iambic", "Tune"})
-        Me.cboKeyer.Location = New System.Drawing.Point(145, 267)
+        Me.cboKeyer.Location = New System.Drawing.Point(145, 291)
         Me.cboKeyer.Name = "cboKeyer"
         Me.cboKeyer.Size = New System.Drawing.Size(137, 21)
         Me.cboKeyer.TabIndex = 25
@@ -280,7 +286,7 @@ Partial Class frmMain
         'Label15
         '
         Me.Label15.AutoSize = True
-        Me.Label15.Location = New System.Drawing.Point(3, 240)
+        Me.Label15.Location = New System.Drawing.Point(3, 264)
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(54, 13)
         Me.Label15.TabIndex = 26
@@ -292,7 +298,7 @@ Partial Class frmMain
         Me.cboBandEnd.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboBandEnd.FormattingEnabled = True
         Me.cboBandEnd.Items.AddRange(New Object() {"Stop tuning", "Wrap around"})
-        Me.cboBandEnd.Location = New System.Drawing.Point(145, 243)
+        Me.cboBandEnd.Location = New System.Drawing.Point(145, 267)
         Me.cboBandEnd.Name = "cboBandEnd"
         Me.cboBandEnd.Size = New System.Drawing.Size(137, 21)
         Me.cboBandEnd.TabIndex = 27
@@ -300,7 +306,7 @@ Partial Class frmMain
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(3, 120)
+        Me.Label5.Location = New System.Drawing.Point(3, 144)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(79, 13)
         Me.Label5.TabIndex = 11
@@ -309,7 +315,7 @@ Partial Class frmMain
         'lblSMeter
         '
         Me.lblSMeter.AutoSize = True
-        Me.lblSMeter.Location = New System.Drawing.Point(145, 120)
+        Me.lblSMeter.Location = New System.Drawing.Point(145, 144)
         Me.lblSMeter.Name = "lblSMeter"
         Me.lblSMeter.Size = New System.Drawing.Size(39, 13)
         Me.lblSMeter.TabIndex = 12
@@ -318,7 +324,7 @@ Partial Class frmMain
         'lblOutputPower
         '
         Me.lblOutputPower.AutoSize = True
-        Me.lblOutputPower.Location = New System.Drawing.Point(145, 96)
+        Me.lblOutputPower.Location = New System.Drawing.Point(145, 120)
         Me.lblOutputPower.Name = "lblOutputPower"
         Me.lblOutputPower.Size = New System.Drawing.Size(39, 13)
         Me.lblOutputPower.TabIndex = 10
@@ -327,7 +333,7 @@ Partial Class frmMain
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(3, 96)
+        Me.Label4.Location = New System.Drawing.Point(3, 120)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(72, 13)
         Me.Label4.TabIndex = 9
@@ -336,7 +342,7 @@ Partial Class frmMain
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(3, 72)
+        Me.Label3.Location = New System.Drawing.Point(3, 96)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(70, 13)
         Me.Label3.TabIndex = 7
@@ -345,7 +351,7 @@ Partial Class frmMain
         'lblVoltage
         '
         Me.lblVoltage.AutoSize = True
-        Me.lblVoltage.Location = New System.Drawing.Point(145, 72)
+        Me.lblVoltage.Location = New System.Drawing.Point(145, 96)
         Me.lblVoltage.Name = "lblVoltage"
         Me.lblVoltage.Size = New System.Drawing.Size(39, 13)
         Me.lblVoltage.TabIndex = 8
@@ -354,7 +360,7 @@ Partial Class frmMain
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(3, 48)
+        Me.Label2.Location = New System.Drawing.Point(3, 72)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(75, 13)
         Me.Label2.TabIndex = 6
@@ -363,11 +369,30 @@ Partial Class frmMain
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(3, 24)
+        Me.Label1.Location = New System.Drawing.Point(3, 48)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(74, 13)
         Me.Label1.TabIndex = 5
         Me.Label1.Text = "TX Frequency"
+        '
+        'Label17
+        '
+        Me.Label17.AutoSize = True
+        Me.Label17.Location = New System.Drawing.Point(3, 0)
+        Me.Label17.Name = "Label17"
+        Me.Label17.Size = New System.Drawing.Size(55, 13)
+        Me.Label17.TabIndex = 28
+        Me.Label17.Text = "Serial Port"
+        '
+        'cboComPort
+        '
+        Me.cboComPort.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.cboComPort.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboComPort.FormattingEnabled = True
+        Me.cboComPort.Location = New System.Drawing.Point(145, 3)
+        Me.cboComPort.Name = "cboComPort"
+        Me.cboComPort.Size = New System.Drawing.Size(137, 21)
+        Me.cboComPort.TabIndex = 29
         '
         'Label6
         '
@@ -607,7 +632,7 @@ Partial Class frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(795, 472)
+        Me.ClientSize = New System.Drawing.Size(795, 516)
         Me.Controls.Add(Me.picBandscan)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.TableLayoutPanel2)
@@ -676,5 +701,7 @@ Partial Class frmMain
     Friend WithEvents cboBandEnd As System.Windows.Forms.ComboBox
     Friend WithEvents Label16 As System.Windows.Forms.Label
     Friend WithEvents lblCWStrength As System.Windows.Forms.Label
+    Friend WithEvents Label17 As System.Windows.Forms.Label
+    Friend WithEvents cboComPort As System.Windows.Forms.ComboBox
 
 End Class
